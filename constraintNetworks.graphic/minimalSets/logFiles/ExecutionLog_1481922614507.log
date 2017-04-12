@@ -1,0 +1,23 @@
+Log File : 2016-12-16 16:10:14.507File name LogFiles/ExecutionLog_1481922614507.log 
+Iteration No.1forward Vertex id= A
+vertex type: Variable the CSP in this iteration is satisfiable
+Iteration No.2forward Vertex id= ABC
+vertex type: Constraint the CSP in this iteration is satisfiable
+Iteration No.3forward Vertex id= B
+vertex type: Variable the CSP in this iteration is satisfiable
+Iteration No.4forward Vertex id= BC
+vertex type: Constraint the CSP in this iteration is satisfiable
+Iteration No.5forward Vertex id= C
+vertex type: Variable the CSP in this iteration is satisfiable
+Iteration No.6forward Vertex id= CE
+vertex type: Constraint the CSP in this iteration is satisfiable
+Iteration No.7forward Vertex id= E
+vertex type: Variable the CSP in this iteration is satisfiable
+Iteration No.8forward Vertex id= AB
+vertex type: Constraint the CSP in this iteration is not satisfiable
+The constraints that made inconsistent the csp are 
+Constraint: A#= 1 #==> B#=1
+Constraint: A#= 2 #==> B#=2
+Starting backwards iteration, actual node AB
+Execution suspended, runTime error 
+java.lang.NullPointerException
