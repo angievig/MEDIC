@@ -35,18 +35,18 @@ public class BigPos {
 
 
 			//inicio grafico
-//			System.out.println("creando una red");
-//			CSP2Network csp2net= new CSP2Network(csp);
-//			Network net= csp2net.transform();
-//			Window mainWindow= new Window(net);
-//			
-			//nuevas restricciones
-			nuevasRestricciones();
-			
-			//inicio pruebas
+			System.out.println("creando una red");
 			CSP2Network csp2net= new CSP2Network(csp);
 			Network net= csp2net.transform();
-			tests(net);
+			Window mainWindow= new Window(net);
+//			
+			//nuevas restricciones
+			//nuevasRestricciones();
+			
+//			//inicio pruebas
+//			CSP2Network csp2net= new CSP2Network(csp);
+//			Network net= csp2net.transform();
+//			tests(net);
 
 
 		}

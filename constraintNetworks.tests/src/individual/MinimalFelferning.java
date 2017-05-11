@@ -17,11 +17,11 @@ public class MinimalFelferning {
 	public static void main(String[] args) {
 	//Seting up the scenario
 			MinimalFelferning m= new MinimalFelferning();
-			Felferning2 problem1= new Felferning2();
+			Felferning problem1= new Felferning();
 			csp= problem1.getCSP();
 			
 			//Starting the algorithm
-			//MinimalSetsBFS minimal = new MinimalSetsBFS(csp, path);
+			
 			MinimalSetsDFS minimal = new MinimalSetsDFS(csp, path);
 			ArrayList<Constraint> set=minimal.startAlgorithm(problem1.getStart());
 			
@@ -39,6 +39,8 @@ public class MinimalFelferning {
 			
 
 		}
+	
+	
 
 
 

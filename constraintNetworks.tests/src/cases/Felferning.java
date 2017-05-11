@@ -104,7 +104,7 @@ public class Felferning {
 		cons.add(c3);
 		cons.add(c4);
 		cons.add(c5);
-		//cons.add(c6);
+		cons.add(c6);
 		cons.add(c7);
 		cons.add(c8);
 		cons.add(c9);
