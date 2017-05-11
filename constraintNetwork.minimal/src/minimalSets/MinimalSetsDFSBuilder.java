@@ -120,7 +120,7 @@ public class MinimalSetsDFSBuilder {
 
 			//logMan.writeInFile((endTime - startTime) + "\t");
 			//TODO comentar estas lineas para pruebas de performance
-			logMan.writeInFile("Total execution: "+(endTime - startTime) + "\n");
+			logMan.writeInFile("Total execution time: "+(endTime - startTime) + "\n");
 		}catch (Exception e){
 			logMan.writeInFile("Execution suspended, runTime error \n"+ e.toString());
 			//writeInFile(e.getMessage());
@@ -130,25 +130,31 @@ public class MinimalSetsDFSBuilder {
 		}
 		
 		//TODO Estas lineas están ocultas para la ejecución de pruebas
-		logMan.writeInFile("Number of iterations: "+ iterations+"\n"); 
+		//logMan.writeInFile("Number of iterations: "+ iterations+"\n"); 
+		
+		logMan.writeInFile("inconsistent vertices: \n"); 
+		for (Constraint v : cc) {
+			logMan.writeInFile(v.getId()+"\n");
+			
+		}
 		logMan.writeInFile("Backwards path: \n"); 
 		for (Vertex v : backwardsdPath) {
 			logMan.writeInFile(v.getId()+", ");
 			
 		}
 		
-		logMan.writeInFile("\nforward path: \n");
-		for (Vertex v : forwardPath) {
-			logMan.writeInFile(v.getId()+", ");
-			
-		}
+//		logMan.writeInFile("\nforward path: \n");
+//		for (Vertex v : forwardPath) {
+//			logMan.writeInFile(v.getId()+", ");
+//			
+//		}
 		
-		logMan.writeInFile("\nExecution times: \n");
-		logMan.writeInFile("File - Prolog \n");
-		for (String s : times) {
-			logMan.writeInFile(s+"\n");
-			
-		}
+//		logMan.writeInFile("\nExecution times: \n");
+//		logMan.writeInFile("File - Prolog \n");
+//		for (String s : times) {
+//			logMan.writeInFile(s+"\n");
+//			
+//		}
 		logMan.writeInFile("\n");
 		
 		return cc;
@@ -220,6 +226,7 @@ public class MinimalSetsDFSBuilder {
 		}
 		//System.out.println("Fin while");
 		if (direction.equals(BACKWARDS)){
+			//visited.add(actual);
 			backwardsdPath= visited;
 			//TODO quitar estas lineas para la prueba de performance
 			logMan.writeInFile("Number of backwards iterations: "+ count+ "\n"); 

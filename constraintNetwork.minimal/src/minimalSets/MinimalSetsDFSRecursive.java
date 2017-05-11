@@ -50,8 +50,8 @@ public class MinimalSetsDFSRecursive {
 	EvaluateSatisfiability eval;
 	
 	//private BufferedWriter out;
-	private CSP inconsistent;
-	private Network constraintNetwork;
+	private CSP cNet;
+	private Network graph;
 	public ArrayList<Vertex> forwardPath;
 	public ArrayList<Vertex> backwardsdPath;
 	public String problemPath; 
@@ -65,9 +65,9 @@ public class MinimalSetsDFSRecursive {
 
 	
 	public MinimalSetsDFSRecursive(CSP csp, String path,  LogManager man, Network net){
-		inconsistent= csp;
+		cNet= csp;
 		logMan= man;
-		constraintNetwork= net;
+		graph= net;
 		//TODO imprime la red de restricciones
 		//printNetwork(constraintNetwork);
 		problemPath= path;
@@ -110,7 +110,7 @@ public class MinimalSetsDFSRecursive {
 		//newLines
 		//TODO llamado a un metodo que pone las variables y el dominio del CCP en el stringBuilder 
 		// se inicializa con las variables y los dominios del csp inconsistente 
-		csp2file.initCSPBuilder(inconsistent, sb);
+		csp2file.initCSPBuilder(cNet, sb);
 		try{
 			
 			long startTime = System.currentTimeMillis();
@@ -155,6 +155,15 @@ public class MinimalSetsDFSRecursive {
 	}
 	
 	/**
+	 *  a NEw version of the algorithh using the names and calls from the paper
+	 * @param cNet
+	 * @param graph
+	 * @param source
+	 */
+	public void  SourceOfInconsistentConstraints(CSP cNet, Network graph, String source){
+		
+	}
+	/**
 	 * Algorithm for finding void models.  This version of the algorithm uses a stack for depth first search
 	 * @param source is a string with the id of the vertex source of the search
 	 * @param csp is a copy of the inconsistent CSP with the variables and domains of the problem
@@ -167,7 +176,7 @@ public class MinimalSetsDFSRecursive {
 		//		for (Vertex vertex : constraintNetwork.g) {
 		//			
 		//		}
-		stack.push(constraintNetwork.getVertex(source)); // the data structure starts with the source vertex
+		stack.push(graph.getVertex(source)); // the data structure starts with the source vertex
 		ArrayList<Vertex> visited= new ArrayList<Vertex> (); // table of visited vertices 
 
 		boolean satisfiable=true; // all empty csp is satisfiable
@@ -232,7 +241,7 @@ public class MinimalSetsDFSRecursive {
 			//newCSP.setDomains(csp.getDomains());
 			forwardPath=visited;
 			sb= new StringBuilder();
-			csp2file.initCSPBuilder(inconsistent, sb);
+			csp2file.initCSPBuilder(cNet, sb);
 			//csp.setEmptyConstraints(); //the algorithm starts with an empty set of constraints
 			//writeInFile("Starting backwards iteration, actual node "+ actual.getId() +"\n");
 			//TODO quitar estas lineas para la prueba de performance
