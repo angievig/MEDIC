@@ -31,7 +31,7 @@ public class CSP2Network {
 			//in the case a constraint is a version constraint, version constraints contains just one variable
 			//FIXME there might be a better form to find a version constraint
 			if (cons.getVars().size()==1){
-				net.addVersionConstraint(cons, cons.getVars().get(0));
+				net.addUnaryConstraint(cons, cons.getVars().get(0));
 			}
 			//if is a regular constraint
 			else{

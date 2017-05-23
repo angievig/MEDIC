@@ -1,5 +1,6 @@
 package constraintNetwork;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,14 +41,73 @@ public class Network {
 	
 	private int constraintVertex;
 	
+	private int edges;
+	private int vertices;
+	
 	public Network(){
 		constraintVertex= 0;
 		constraintsCount=0;
 		variablesCount=0;
 		variables=new HashMap<String,NodeVariable>();
 		constraints=new HashMap<String,NodeConstraint>();
+		//amount of vertices and edges in a graph
+		edges=0;
+		vertices=0;
 		//graph= new UndirectedSparseGraph<Vertex,String>();
 	}
+	
+	public int numEdges(){
+		return edges;
+	}
+	
+	public int numVertices(){
+		return constraintsCount+variablesCount;
+	}
+	
+	/**
+	 * For include a vertex in the network
+	 * first the type of the vertex is determined, to include it in the collection
+	 * @param v
+	 */
+	public void addVertex(Vertex v){
+		
+		//FIXME acomodar aquí los llamados al constructor de cada uno de los vértices
+		if (v instanceof NodeConstraint){
+			//Constraint c = 
+			//addConstraint(((NodeConstraint) v).getConstraint());
+			//System.out.println();
+			constraints.put(v.getId(), (NodeConstraint) v);
+			constraintsCount++;
+		}
+
+        else if (v instanceof NodeVariable){
+        	variables.put(v.getId(), (NodeVariable) v);
+        	variablesCount++;
+        }
+	}
+	
+	/**
+	 * v1 y v2 are vertices, they can't be the same type
+	 * v1 and v2 are vertices in the graph
+	 * @param v1
+	 * @param v2
+	 * @throws Exception when the two vertices ae the same type
+	 */
+	public void addEdge(Vertex v1, Vertex v2) throws Exception{
+		if ((v1 instanceof NodeConstraint && v2 instanceof NodeVariable) ||
+				(v1 instanceof NodeVariable && v2 instanceof NodeConstraint)  ){
+			
+			v1.addNeighbor(v2);
+			v2.addNeighbor(v1);
+			edges++;
+		}else{
+			throw new Exception("An error occured when adding an edge containing two vertices of the same type, vertices: " 
+		                         + v1.getId() + " , "+ v2.getId());
+		}
+		
+		
+	}
+	
 	
 	/**
 	 * @param id el id de la variable, ya no se crea el id, esto puede tomar mucho tiempo
@@ -93,6 +153,7 @@ public class Network {
 				// add all variables to the constraint neighbors
 				var.addNeighbor(newNode);
 				newNode.addNeighbor(var);
+				edges++;
 			}
 			constraints.put(id, newNode);
 		}
@@ -108,7 +169,7 @@ public class Network {
 	public void addConstraint(Constraint cons){
 		String id=cons.getId();  //the id of the node constraint is the same id of the constraint
 		NodeConstraint newNode =null; //the new constraint node
-		constraintsCount++; //number of constraints in the problem, different than the number of nodes 
+		constraintsCount++; //number of constraints in the problem, could be different than the number of nodes 
 		ArrayList<Variable> vars= cons.getVars();
 		
 //		String expression = cons.getExpression();
@@ -147,6 +208,7 @@ public class Network {
 				// add all variables to the constraint neighbors
 				var.addNeighbor(newNode);
 				newNode.addNeighbor(var);
+				edges++;
 			}
 			constraints.put(id, newNode);
 		}
@@ -163,14 +225,18 @@ public class Network {
 //		return exit;
 //	}
 	
-	public boolean addVersionConstraint(Constraint cons, Variable var){
+	public boolean addUnaryConstraint(Constraint cons, Variable var){
 		boolean exit=false;
 		String id= var.getId();
 		NodeVariable varN=variables.get(id);
 		
-		if (var!=null)
+		if (var!=null){
 			exit= varN.addConstraint(cons);
+			constraintsCount++;
+			edges++;
+		}
 		return exit;
+		
 	}
 	
 	/**

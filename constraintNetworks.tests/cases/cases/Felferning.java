@@ -24,7 +24,7 @@ public class Felferning {
 	
 	public void initVariables(){
 		ubuntu= new Variable("Ubuntu", "0..1");
-		textEditor= new Variable("TextEditor", "0..3");
+		textEditor= new Variable("TextEditor", "0..1");
 		bash= new Variable("Bash", "0..1");
 		gui= new Variable("Gui", "0..1");
 		games= new Variable("Games", "0..1");

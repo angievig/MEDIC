@@ -9,7 +9,7 @@ import cspElements.Constraint;
 /**
  * Class representing a vertex for a constraint network
  * @author Angela Villota <angievig@gmail.com>
- * @version 0
+ * @version 1.0 we  included the attribute color for the depth first search
  * @since 0
  *
  */
@@ -17,14 +17,27 @@ import cspElements.Constraint;
 public abstract class Vertex implements Comparable<Vertex>{
 	public static final boolean CONSTRAINT_TYPE=true;
 	public static final boolean VARIABLE_TYPE=false;
+	public static final int VISITED=2;
+	public static final int INSTACK=1;
+	public static final int NOT_VISITED=0;
 	private  String id;
 	private ArrayList<Constraint> constraints;
+
+
 	private TreeSet <Vertex> neighbors;
+	private int searchState;
+	private Vertex parent;
 	
+
+
+
+
 	public void initialize(String id){
 		this.id=id;
 		constraints= new ArrayList<Constraint>();
 		neighbors= new TreeSet<Vertex>(); 
+		searchState= NOT_VISITED;
+		parent= null;
 	}
 	
 	public  ArrayList<Constraint> getConstraints(){
@@ -51,6 +64,27 @@ public abstract class Vertex implements Comparable<Vertex>{
 		 return id.compareTo(o.getId());
 	}
 	
+	public int getSearchState() {
+		return searchState;
+	}
+
+	public void setSearchState(int searchState) {
+		this.searchState = searchState;
+	}
+	
+	public Vertex getParent() {
+		return parent;
+	}
+
+	public void setParent(Vertex parent) {
+		this.parent = parent;
+	}
+	
+	public void setConstraints(ArrayList<Constraint> constraints) {
+		this.constraints = constraints;
+	}
+	
+	public abstract Vertex clone();
 	/**
 	 * 
 	 */
