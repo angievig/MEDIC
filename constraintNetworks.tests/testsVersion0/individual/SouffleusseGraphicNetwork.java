@@ -2,11 +2,10 @@ package individual;
 
 import java.util.HashSet;
 
-
-import constraintNetwork.Network;
 import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
+import graph.ConstraintGraph;
 import graphicConstraintNetwork.GraphicNetwork;
 import graphicConstraintNetwork.Window;
 import prologParser.XCSPPrologParser;
@@ -27,7 +26,7 @@ public class SouffleusseGraphicNetwork {
 			Xparser = new XCSPPrologParser(filename);
 			csp= Xparser.getCSP();
 			SouffleusseGraphicNetwork m= new SouffleusseGraphicNetwork();
-			Network net= m.csp2network(csp);
+			ConstraintGraph net= m.csp2network(csp);
 			Window mainWindow= new Window(net);
 			prologFile();
 		} catch (Exception e) {
@@ -37,10 +36,10 @@ public class SouffleusseGraphicNetwork {
 //		GraphicNetwork gnet= new GraphicNetwork(net);
 
 	}
-	public Network csp2network(CSP csp){
+	public ConstraintGraph csp2network(CSP csp){
 		System.out.println("transforming into constraint network");
 		CSP2Network csp2net= new CSP2Network(csp);
-		Network net= csp2net.transform();
+		ConstraintGraph net= csp2net.transform();
 		
 		
 		return net;

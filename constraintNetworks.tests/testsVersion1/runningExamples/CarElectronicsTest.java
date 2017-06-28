@@ -2,7 +2,7 @@ package runningExamples;
 
 import cases.CarElectronics;
 import common.TestCase;
-import constraintNetwork.Network;
+import graph.ConstraintGraph;
 
 public class CarElectronicsTest {
 	
@@ -17,7 +17,7 @@ public class CarElectronicsTest {
 		
 		
 		//start the window if you want a graphic test
-		Network net= test.startWindow(problem.getCSP());
+		ConstraintGraph net= test.startWindow(problem.getCSP());
 		test.printCSP();
 		
 		//start the test, te input is the constraint graph and the amount of tests to perform

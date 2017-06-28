@@ -14,12 +14,12 @@ import java.util.LinkedList;
 //import java.util.Set;
 import java.util.Stack;
 
-import constraintNetwork.Network;
-import constraintNetwork.NodeConstraint;
-import constraintNetwork.NodeVariable;
-import constraintNetwork.Vertex;
 import cspElements.CSP;
 import cspElements.Constraint;
+import graph.ConstraintGraph;
+import graph.NodeConstraint;
+import graph.NodeVariable;
+import graph.Vertex;
 import transform.CSP2File;
 import transform.CSP2Network;
 
@@ -45,7 +45,7 @@ public class MinimalSetsBFS {
 	private BufferedWriter out;
 
 	private CSP inconsistent;
-	private Network constraintNetwork;
+	private ConstraintGraph constraintNetwork;
 	public ArrayList<Vertex> forwardPath;
 	public ArrayList<Vertex> backwardsdPath;
 	public String problemPath; 
@@ -207,10 +207,10 @@ public class MinimalSetsBFS {
 	 * @param csp
 	 * @return
 	 */
-	public Network csp2network(CSP csp){
+	public ConstraintGraph csp2network(CSP csp){
 		//System.out.println("transforming into constraint network");
 		CSP2Network csp2net= new CSP2Network(csp);
-		Network net= csp2net.transform();
+		ConstraintGraph net= csp2net.transform();
 		
 		return net;
 	}

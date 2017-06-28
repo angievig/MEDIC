@@ -14,12 +14,12 @@ import java.util.LinkedList;
 //import java.util.Set;
 import java.util.Stack;
 
-import constraintNetwork.Network;
-import constraintNetwork.NodeConstraint;
-import constraintNetwork.NodeVariable;
-import constraintNetwork.Vertex;
 import cspElements.CSP;
 import cspElements.Constraint;
+import graph.ConstraintGraph;
+import graph.NodeConstraint;
+import graph.NodeVariable;
+import graph.Vertex;
 import transform.CSP2File;
 import transform.CSP2FileRandom;
 import transform.CSP2Network;
@@ -61,7 +61,7 @@ public class MinimalSetsDFSIterations {
 	EvaluateSatisfiability eval;
 	
 	private CSP cspIn;
-	private Network graph;
+	private ConstraintGraph graph;
 	private ArrayList<Vertex> forwardPath;
 	private ArrayList<Vertex> backwardsdPath;
 	private String problemPath; 
@@ -81,7 +81,7 @@ public class MinimalSetsDFSIterations {
 	 * @param man is the object used to make the logfile to report the execution of the algorithm
 	 * @param net is the graph generated from the csp
 	 */
-	public MinimalSetsDFSIterations(CSP csp, String path,  LogManager man, Network net){
+	public MinimalSetsDFSIterations(CSP csp, String path,  LogManager man, ConstraintGraph net){
 		cspIn= csp;
 		logMan= man;
 		graph= net;
@@ -128,7 +128,7 @@ public class MinimalSetsDFSIterations {
 			source= path.getPath().getLast().getId();
 			int previousSize;
 			//list = recoverPath( path0.getPath().getLast(), list);
-			Network subGraph= path.getSubset();
+			ConstraintGraph subGraph= path.getSubset();
 			System.out.println("Size of path iteration No.1: " + path.getPath().size());
 			
 			for (Vertex vertex : path.getPath()) {
@@ -223,11 +223,11 @@ public class MinimalSetsDFSIterations {
 	 * @return path is a linked-list containing the sequence of visited vertices.  
 	 * The last vertex in path is the inconsistent contains the inconsistent constraint
 	 */
-	public Path searchPath(String source, Network graphIn) throws Exception{
+	public Path searchPath(String source, ConstraintGraph graphIn) throws Exception{
 		
 		logMan.writeInFile("\nConstraint graph in iteration "+ iterations+ "\n");
 		printNetwork(graphIn);
-		Network subGraph = new Network();
+		ConstraintGraph subGraph = new ConstraintGraph();
 		Path output= null;
 		StringBuilder sb= new StringBuilder();
 		CSP2File csp2file= new CSP2File();
@@ -322,7 +322,7 @@ public class MinimalSetsDFSIterations {
 	 * @param actual is the actual vertex
 	 * @return return the next vertex to be examined
 	 */
-	public Vertex getNextNode(Stack<Vertex> structure, Vertex actual, Network newG )throws Exception{
+	public Vertex getNextNode(Stack<Vertex> structure, Vertex actual, ConstraintGraph newG )throws Exception{
 		
 		actual.setSearchState(Vertex.VISITED);
 		Vertex next;
@@ -384,16 +384,16 @@ public class MinimalSetsDFSIterations {
 	 * @param csp
 	 * @return
 	 */
-	public Network csp2network(CSP csp){
+	public ConstraintGraph csp2network(CSP csp){
 		
 		CSP2Network csp2net= new CSP2Network(csp);
-		Network net= csp2net.transform();
+		ConstraintGraph net= csp2net.transform();
 		
 		return net;
 	}
 	
 	
-	public void printNetwork(Network net){
+	public void printNetwork(ConstraintGraph net){
 		logMan.writeInFile("\nConstraint network: \n");
 		logMan.writeInFile("Total vertices: "+net.numVertices()+
 				           " vars: "+net.getVariablesCount()+

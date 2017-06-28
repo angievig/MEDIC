@@ -14,9 +14,6 @@ import javax.swing.JPanel;
 
 import com.google.common.base.Supplier;
 
-import constraintNetwork.Network;
-import constraintNetwork.NodeConstraint;
-import constraintNetwork.Vertex;
 import cspElements.Constraint;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
@@ -34,10 +31,13 @@ import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.picking.PickedState;
+import graph.ConstraintGraph;
+import graph.NodeConstraint;
+import graph.Vertex;
 
 
 public class GraphicNetwork extends JPanel {
-	private Network net;
+	private ConstraintGraph net;
 	private Graph<Vertex, String> g;
 //	private JFrame frame;
 //	private JPanel drawPanel;
@@ -46,7 +46,7 @@ public class GraphicNetwork extends JPanel {
 	private VertexLabel<Vertex> vertexLabel;
 	private DefaultModalGraphMouse<Vertex,String> gm;
 	
-	public GraphicNetwork(Network n){
+	public GraphicNetwork(ConstraintGraph n){
 		net= n;
 		g= createGraph();
 //		frame= new JFrame();

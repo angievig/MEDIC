@@ -2,29 +2,29 @@ package minimalSets;
 
 import java.util.LinkedList;
 
-import constraintNetwork.Network;
-import constraintNetwork.Vertex;
+import graph.ConstraintGraph;
+import graph.Vertex;
 
 public class Path {
 
 
-	private Network subset;
+	private ConstraintGraph subset;
 	private LinkedList <Vertex> path;
 	
 	public Path(){
 		
 	}
 	
-	public Path(Network inNet, LinkedList <Vertex> inPath){
+	public Path(ConstraintGraph inNet, LinkedList <Vertex> inPath){
 		subset= inNet;
 		path= inPath;
 	}
 	
-	public Network getSubset() {
+	public ConstraintGraph getSubset() {
 		return subset;
 	}
 
-	public void setSubset(Network subset) {
+	public void setSubset(ConstraintGraph subset) {
 		this.subset = subset;
 	}
 

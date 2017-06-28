@@ -4,10 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 import cases.Felferning2;
-import constraintNetwork.Network;
 import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
+import graph.ConstraintGraph;
 import graphicConstraintNetwork.Window;
 import individual.MinimalFelferning;
 import minimalSets.LogManager;

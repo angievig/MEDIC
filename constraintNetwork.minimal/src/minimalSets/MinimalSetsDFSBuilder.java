@@ -13,12 +13,12 @@ import java.util.HashMap;
 //import java.util.Set;
 import java.util.Stack;
 
-import constraintNetwork.Network;
-import constraintNetwork.NodeConstraint;
-import constraintNetwork.NodeVariable;
-import constraintNetwork.Vertex;
 import cspElements.CSP;
 import cspElements.Constraint;
+import graph.ConstraintGraph;
+import graph.NodeConstraint;
+import graph.NodeVariable;
+import graph.Vertex;
 import transform.CSP2File;
 import transform.CSP2FileRandom;
 import transform.CSP2Network;
@@ -51,7 +51,7 @@ public class MinimalSetsDFSBuilder {
 	
 	//private BufferedWriter out;
 	private CSP inconsistent;
-	private Network constraintNetwork;
+	private ConstraintGraph constraintNetwork;
 	public ArrayList<Vertex> forwardPath;
 	public ArrayList<Vertex> backwardsdPath;
 	public String problemPath; 
@@ -64,7 +64,7 @@ public class MinimalSetsDFSBuilder {
 	private int iterations;
 
 	
-	public MinimalSetsDFSBuilder(CSP csp, String path,  LogManager man, Network net){
+	public MinimalSetsDFSBuilder(CSP csp, String path,  LogManager man, ConstraintGraph net){
 		inconsistent= csp;
 		logMan= man;
 		constraintNetwork= net;
@@ -302,15 +302,15 @@ public class MinimalSetsDFSBuilder {
 	 * @param csp
 	 * @return
 	 */
-	public Network csp2network(CSP csp){
+	public ConstraintGraph csp2network(CSP csp){
 		
 		CSP2Network csp2net= new CSP2Network(csp);
-		Network net= csp2net.transform();
+		ConstraintGraph net= csp2net.transform();
 		
 		return net;
 	}
 	
-	public void printNetwork(Network net){
+	public void printNetwork(ConstraintGraph net){
 		
 	
 		logMan.writeInFile("\nConstraint network: \n");

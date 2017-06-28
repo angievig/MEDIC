@@ -4,10 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 import cases.Felferning2;
-import constraintNetwork.Network;
 import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
+import graph.ConstraintGraph;
 import individual.MinimalFelferning;
 import minimalSets.LogManager;
 import minimalSets.MinimalSetsDFS;
@@ -63,7 +63,7 @@ public class Souffleuse {
 			csp.addVarToConstraint(cn6, "X8_1");
 			
 			CSP2Network csp2net= new CSP2Network(csp);
-			Network net= csp2net.transform();
+			ConstraintGraph net= csp2net.transform();
 
 			
 

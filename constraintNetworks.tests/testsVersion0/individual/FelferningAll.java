@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 import cases.Felferning2;
 import cases.Felferning;
-import constraintNetwork.Network;
 import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
+import graph.ConstraintGraph;
 import graphicConstraintNetwork.Window;
 import minimalSets.LogManager;
 import minimalSets.MinimalSetsDFSBuilder;
@@ -40,7 +40,7 @@ public class FelferningAll {
 				CSP2Network csp2net= new CSP2Network(csp);
 				
 				//printCSP();
-				Network net= csp2net.transform();
+				ConstraintGraph net= csp2net.transform();
 				Window mainWindow= new Window(net);
 				
 
@@ -74,7 +74,7 @@ public class FelferningAll {
 			fman.writeInFile("\n");
 		}
 		
-		static void tests(Network net){
+		static void tests(ConstraintGraph net){
 			//Starting the algorithm
 			
 			System.out.println("starting diagnosis");

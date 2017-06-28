@@ -1,4 +1,4 @@
-package constraintNetwork;
+package graph;
 
 
 import java.util.TreeSet;

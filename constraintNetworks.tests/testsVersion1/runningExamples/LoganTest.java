@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import cases.Felferning;
 import cases.RenaultLogan;
 import common.TestCase;
-import constraintNetwork.Network;
 import cspElements.CSP;
 import cspElements.Constraint;
-
+import graph.ConstraintGraph;
 import minimalSets.MinimalSetsBFS;
 import minimalSets.MinimalSetsDFS;
 
-public class MinimalRenault {
+public class LoganTest {
 	public static void main(String[] args){
 		//to run a test:
 				// create an instance of the problem, or read from the file
@@ -24,7 +23,7 @@ public class MinimalRenault {
 				
 				
 				//start the window if you want a graphic test
-				Network net= test.startWindow(problem.getCSP());
+				ConstraintGraph net= test.startWindow(problem.getCSP());
 				test.printCSP();
 				
 				//start the test, the input is the constraint graph and the amount of tests to perform

@@ -2,51 +2,71 @@ package common;
 
 import java.util.LinkedList;
 
-
-import constraintNetwork.Network;
-import constraintNetwork.Vertex;
 import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
+import graph.ConstraintGraph;
+import graph.Vertex;
 import graphicConstraintNetwork.Window;
 import minimalSets.LogManager;
 import minimalSets.MinimalSetsDFSIterations;
 import transform.CSP2Network;
 
+/**
+ * Class to test a case study.
+ * @author Angela Villota
+ *
+ */
 public class TestCase {
-	private String problemPath;//= "C:/Users/Angela Villota/Documents/Tests/Felferning/";
+	/**
+	 * problemPath is the pat where the files will be placed
+	 */
+	private String problemPath;
+	/**
+	 * CSP representing the problem to be solved
+	 */
 	private static CSP csp;
-
-	private static  LogManager fman;//= new LogManager(path, "Felferning");
 	
+	/**
+	 * fman is the object of class LogManager to create the log files
+	 */
+
+	private static  LogManager fman;
+	
+	/**
+	 * Initializes the test case with the path and the name of the problem
+	 * @param problem
+	 * @param name
+	 */
 	public TestCase(String problem, String name){
 		problemPath= problem;
 		fman= new LogManager(problemPath, name);
 		fman.initLog();	
 		
 	}
+	
+	/**
+	 * Starts the GUI with the constraint graph
+	 * @param cspProblem
+	 * @return
+	 */
 
-	public Network startWindow(CSP cspProblem){
+	public ConstraintGraph startWindow(CSP cspProblem){
 		//inicio grafico
 	    System.out.println("building a constraint graph");
-	    csp= cspProblem;
-		CSP2Network csp2net= new CSP2Network(csp);
-		Network net= csp2net.transform();
+		CSP2Network csp2net= new CSP2Network(cspProblem);
+		ConstraintGraph net= csp2net.transform();
 		Window mainWindow= new Window(net);
 		return net;
 	}
-	
-	
-
-
-
-	public void startTests(Network net, int cant, String source){
-
-
+	/**
+	 * 
+	 * @param net
+	 * @param cant
+	 * @param source
+	 */
+	public void startTests(ConstraintGraph net, int cant, String source){
 		System.out.println("starting diagnosis");
-			
-		
-		
 		for (int i = 0; i < cant; i++) {
 		MinimalSetsDFSIterations minimal = new MinimalSetsDFSIterations(csp,problemPath+"out/", fman, net);
 		LinkedList<Vertex> pathNodes =minimal.sourceOfInconsistentConstraints(source, 10);

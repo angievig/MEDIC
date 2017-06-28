@@ -4,10 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 import cases.Felferning2;
-import constraintNetwork.Network;
 import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
+import graph.ConstraintGraph;
 import graphicConstraintNetwork.Window;
 import individual.MinimalFelferning;
 import minimalSets.LogManager;
@@ -47,7 +47,7 @@ public class Master {
 			
 			//inicio pruebas
 			CSP2Network csp2net= new CSP2Network(csp);
-			Network net= csp2net.transform();
+			ConstraintGraph net= csp2net.transform();
 			tests(net);
 
 
@@ -111,7 +111,7 @@ public class Master {
 		fman.writeInFile("\n");
 	}
 	
-	static void tests(Network net){
+	static void tests(ConstraintGraph net){
 		//Starting the algorithm
 		//MinimalSetsBFS minimal = new MinimalSetsBFS(csp, path);
 		System.out.println("inicio tests");

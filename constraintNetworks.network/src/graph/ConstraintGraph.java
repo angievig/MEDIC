@@ -1,4 +1,4 @@
-package constraintNetwork;
+package graph;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import cspElements.Variable;
  * @author Angela Villota <Angela Villota>
  *
  */
-public class Network {
+public class ConstraintGraph {
 	
 	
 	//private UndirectedSparseGraph<Vertex,String> graph;
@@ -44,7 +44,7 @@ public class Network {
 	private int edges;
 	private int vertices;
 	
-	public Network(){
+	public ConstraintGraph(){
 		constraintVertex= 0;
 		constraintsCount=0;
 		variablesCount=0;

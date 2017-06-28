@@ -6,8 +6,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import constraintNetwork.Network;
 import cspElements.CSP;
+import graph.ConstraintGraph;
 
 public class Window extends JFrame{
 	private GraphicNetwork graph;
@@ -15,7 +15,7 @@ public class Window extends JFrame{
 	private JPanel modePanel;
 	
 	
-	public Window(Network net){
+	public Window(ConstraintGraph net){
 		graph= new GraphicNetwork(net);
 		modePanel= graph.modePanel();
 		controls = new ControlPanel(this, modePanel);

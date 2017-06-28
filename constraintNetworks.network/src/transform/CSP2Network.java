@@ -1,20 +1,20 @@
 package transform;
 
-import constraintNetwork.Network;
 import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
+import graph.ConstraintGraph;
 
 public class CSP2Network {
 	private CSP csp;
-	private Network net;
+	private ConstraintGraph net;
 	
 	public CSP2Network(CSP csp){
 		this.csp= csp;
-		net= new Network();
+		net= new ConstraintGraph();
 	}
 	
-	public Network transform(){
+	public ConstraintGraph transform(){
 		
 		//loading variables
 		for (Variable var : csp.getVariables()) {

@@ -5,10 +5,10 @@ import java.awt.Paint;
 
 import com.google.common.base.Function;
 
-import constraintNetwork.NodeConstraint;
-import constraintNetwork.NodeVariable;
-import constraintNetwork.Vertex;
 import edu.uci.ics.jung.visualization.picking.PickedInfo;
+import graph.NodeConstraint;
+import graph.NodeVariable;
+import graph.Vertex;
 
 public class VertexLabel<V> implements Function<V,String> {
 	protected PickedInfo<V> pi;

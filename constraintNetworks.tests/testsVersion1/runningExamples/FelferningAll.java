@@ -6,11 +6,11 @@ package runningExamples;
 import common.TestCase;
 import cases.CarElectronics;
 import cases.Felferning;
-import constraintNetwork.Network;
-import constraintNetwork.Vertex;
 import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
+import graph.ConstraintGraph;
+import graph.Vertex;
 import graphicConstraintNetwork.Window;
 import minimalSets.LogManager;
 import minimalSets.MinimalSetsDFSBuilder;
@@ -30,7 +30,7 @@ public class FelferningAll {
 			
 			
 			//start the window if you want a graphic test
-			Network net= test.startWindow(problem.getCSP());
+			ConstraintGraph net= test.startWindow(problem.getCSP());
 			test.printCSP();
 			
 			//start the test, te input is the constraint graph and the amount of tests to perform

@@ -5,8 +5,8 @@ import java.awt.Paint;
 
 import com.google.common.base.Function;
 
-import constraintNetwork.NodeConstraint;
 import edu.uci.ics.jung.visualization.picking.PickedInfo;
+import graph.NodeConstraint;
 
 public class VertexLayout<V> implements Function<V,Paint> {
 	
