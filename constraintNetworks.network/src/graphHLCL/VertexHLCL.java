@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclProgram;
+
 import cspElements.Constraint;
 
 /**
@@ -22,7 +25,7 @@ public abstract class VertexHLCL implements Comparable<VertexHLCL>{
 	public static final int NOT_VISITED=0;
 	private  String id;
 	//private ArrayList<Constraint> constraints;
-	//private HLCLProgram constraints;
+	private ArrayList<BooleanExpression> constraints;
 
 
 	private TreeSet <VertexHLCL> neighbors;
@@ -36,6 +39,7 @@ public abstract class VertexHLCL implements Comparable<VertexHLCL>{
 	public void initialize(String id){
 		this.id=id;
 		neighbors= new TreeSet<VertexHLCL>(); 
+		constraints= new ArrayList<BooleanExpression>();
 		searchState= NOT_VISITED;
 		parent= null;
 	}
@@ -86,6 +90,18 @@ public abstract class VertexHLCL implements Comparable<VertexHLCL>{
 //		return v.equals(id);
 //		
 //	}
+	
+	public ArrayList<BooleanExpression> getConstraints(){
+		return constraints;
+	}
+
+
+	public void setConstraints(ArrayList<BooleanExpression> constraints) {
+		this.constraints = constraints;
+	}
+	public boolean addConstraint(BooleanExpression c){
+		return constraints.add(c);
+	}
 	
 
 

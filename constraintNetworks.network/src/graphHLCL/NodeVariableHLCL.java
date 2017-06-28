@@ -14,17 +14,20 @@ public class NodeVariableHLCL extends VertexHLCL {
 	
 	private TreeSet <NodeConstraintHLCL> neighbors;
 	private Identifier var;
-	private HlclProgram unaryConstraints;
+	//private HlclProgram constraints;
+	
 	
 	public NodeVariableHLCL (Identifier v){
 		var=v;
-		unaryConstraints= new HlclProgram();
+		//constraints= new HlclProgram();
 		initialize(var.getId());
 	}
 	
 	public Identifier getVar(){
 		return var;
 	}
+	
+
 	
 	public NodeVariableHLCL clone(){
 		//NodeConstraint clon= new NodeConstraint(this.getId(), this.getConstraints());
@@ -33,16 +36,9 @@ public class NodeVariableHLCL extends VertexHLCL {
 		
 		return clon;
 	}
+
 	
-	public  HlclProgram getConstraints(){
-		return unaryConstraints;
-	}
-	public boolean addConstraint(BooleanExpression c){
-		return unaryConstraints.add(c);
-	}
-	public void setConstraints(HlclProgram constraints) {
-		this.unaryConstraints = constraints;
-	}
+
 
 
 

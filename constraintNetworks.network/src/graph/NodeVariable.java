@@ -26,6 +26,7 @@ public class NodeVariable extends Vertex {
 		
 		return clon;
 	}
+	
 
 
 

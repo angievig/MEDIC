@@ -298,7 +298,7 @@ public class ConstraintGraphHLCL {
 			 }
 			 System.out.print("\n");
 			 System.out.print("unary constraints: \n" );
-			 for (BooleanExpression unary : var.getConstraints()) {
+			 for (BooleanExpression unary :  var.getConstraints()) {
 				 System.out.print(unary.toString()+"\n");	 
 			}
 		 }

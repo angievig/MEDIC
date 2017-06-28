@@ -1,22 +1,32 @@
 package minimalSets;
 
-
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 //import java.util.HashSet;
 //import java.util.Set;
 import java.util.Stack;
 
-import cspElements.CSP;
-import cspElements.Constraint;
-import graph.ConstraintGraph;
-import graph.NodeConstraint;
-import graph.NodeVariable;
-import graph.Vertex;
-import transform.CSP2File;
-import transform.CSP2Network;
+import com.variamos.compiler.prologEditors.Hlcl2SWIProlog;
+import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.HlclProgram;
+
+//import cspElements.CSP;
+//import cspElements.Constraint;
+import graphHLCL.ConstraintGraphHLCL;
+import graphHLCL.NodeConstraintHLCL;
+import graphHLCL.NodeVariableHLCL;
+import graphHLCL.VertexHLCL;
+//import transform.CSP2File;
+//import transform.CSP2FileRandom;
+import transform.HLCL2Graph;
 
 
 /**
@@ -38,7 +48,7 @@ import transform.CSP2Network;
  * @since 0
  *
  */
-public class MinimalSetsDFSIterations {
+public class MinimalSetsDFSIterationsHLCL {
 	public static final String LOGNAME="logFiles/ExecutionLog";
 	public static final String LOGEXT=".log";
 	public static final String FORWARD = "forward";
@@ -54,8 +64,8 @@ public class MinimalSetsDFSIterations {
 //	private CSP2File csp2file;
 	EvaluateSatisfiability eval;
 	
-	private CSP cspIn;
-	private ConstraintGraph graph;
+	private HlclProgram cspIn;
+	private ConstraintGraphHLCL graph;
 	private String problemPath; 
 	
 	private LogManager logMan;
@@ -73,7 +83,7 @@ public class MinimalSetsDFSIterations {
 	 * @param man is the object used to make the logfile to report the execution of the algorithm
 	 * @param net is the graph generated from the csp
 	 */
-	public MinimalSetsDFSIterations(CSP csp, String path,  LogManager man, ConstraintGraph net){
+	public MinimalSetsDFSIterationsHLCL(HlclProgram csp, String path,  LogManager man, ConstraintGraphHLCL net){
 		cspIn= csp;
 		logMan= man;
 		graph= net;
@@ -96,12 +106,9 @@ public class MinimalSetsDFSIterations {
  * @param maxIterations
  * @return
  */
-	public LinkedList<Vertex> sourceOfInconsistentConstraints(String source, int maxIterations){
-		
-		//LinkedList<Vertex> path0= new LinkedList<Vertex>();
-		//LinkedList<Vertex> path=null;
-		//Path path0= new Path();
-		Path<ConstraintGraph,Vertex> path = new Path<ConstraintGraph,Vertex>();
+	public LinkedList<VertexHLCL> sourceOfInconsistentConstraints(String source, int maxIterations){
+
+		Path<ConstraintGraphHLCL,VertexHLCL> path = new Path<ConstraintGraphHLCL,VertexHLCL>();
 		//newLines
 		//TODO llamado a un metodo que pone las variables y el dominio del CCP en el stringBuilder 
 		// se inicializa con las variables y los dominios del csp inconsistente 
@@ -120,10 +127,10 @@ public class MinimalSetsDFSIterations {
 			source= path.getPath().getLast().getId();
 			int previousSize;
 			//list = recoverPath( path0.getPath().getLast(), list);
-			ConstraintGraph subGraph= path.getSubset();
+			ConstraintGraphHLCL subGraph= path.getSubset();
 			System.out.println("Size of path iteration No.1: " + path.getPath().size());
 			
-			for (Vertex vertex : path.getPath()) {
+			for (VertexHLCL vertex : path.getPath()) {
 				System.out.print(vertex.getId()+ " ");
 			}
 			System.out.println();
@@ -138,7 +145,7 @@ public class MinimalSetsDFSIterations {
 				maxIterations--;
 				count++;
 				System.out.println("Size of path iteration No.: " + path.getPath().size());
-				for (Vertex vertex : path.getPath()) {
+				for (VertexHLCL vertex : path.getPath()) {
 					System.out.print(vertex.getId()+ " ");
 				}
 				System.out.println();
@@ -193,7 +200,7 @@ public class MinimalSetsDFSIterations {
 	
 	}
 	
-	public LinkedList<Vertex> recoverPath(Vertex v, LinkedList<Vertex> path){
+	public LinkedList<VertexHLCL> recoverPath(VertexHLCL v, LinkedList<VertexHLCL> path){
 		
 		
 		if (v.getParent() == null){
@@ -215,24 +222,29 @@ public class MinimalSetsDFSIterations {
 	 * @return path is a linked-list containing the sequence of visited vertices.  
 	 * The last vertex in path is the inconsistent contains the inconsistent constraint
 	 */
-	public Path<ConstraintGraph,Vertex> searchPath(String source, ConstraintGraph graphIn) throws Exception{
+	public Path<ConstraintGraphHLCL,VertexHLCL> searchPath(String source, ConstraintGraphHLCL graphIn) throws Exception{
 		
 		logMan.writeInFile("\nConstraint graph in iteration "+ iterations+ "\n");
 		printNetwork(graphIn);
-		ConstraintGraph subGraph = new ConstraintGraph();
-		Path<ConstraintGraph,Vertex> output= null;
+		ConstraintGraphHLCL subGraph = new ConstraintGraphHLCL();
+		Path<ConstraintGraphHLCL,VertexHLCL> output= null;
+		//Estas lineas permiten que la creacion del archivo sea incremental, se crea el string builder 
+		//Las siguientes lineas crean la parte inicial del archivo
 		StringBuilder sb= new StringBuilder();
-		CSP2File csp2file= new CSP2File();
-		csp2file.initCSPBuilder(cspIn, sb);
-		LinkedList<Vertex> path= new LinkedList<Vertex>(); // the output
-		Stack<Vertex> stack= new Stack<Vertex>();  //data structure used to perform the Depth First Search
+		Hlcl2SWIProlog parser= new Hlcl2SWIProlog();
+		parser.w
+//		CSP2File csp2file= new CSP2File();
+//		csp2file.initCSPBuilder(cspIn, sb);
+		
+		LinkedList<VertexHLCL> path= new LinkedList<VertexHLCL>(); // the output
+		Stack<VertexHLCL> stack= new Stack<VertexHLCL>();  //data structure used to perform the Depth First Search
 
 		stack.push(graphIn.getVertex(source)); // the data structure starts with the source vertex
 		//ArrayList<Vertex> visited= new ArrayList<Vertex> (); // table of visited vertices 
 
 		boolean satisfiable=true; // all empty csp is satisfiable
-		Vertex actual=stack.pop(); //initializing the loop with a vertex
-		Vertex clon= actual.clone();
+		VertexHLCL actual=stack.pop(); //initializing the loop with a vertex
+		VertexHLCL clon= actual.clone();
 		//System.out.println("root: " + actual.getId()+", search state: "+ actual.getSearchState()+", actual: "+ clon.getParent());
 		//System.out.println("root clon: " + clon.getId()+", search state: "+ clon.getSearchState()+", parent: "+ clon.getParent());
 		subGraph.addVertex(actual.clone());
@@ -246,13 +258,13 @@ public class MinimalSetsDFSIterations {
 		while(satisfiable){
 			path.addLast(actual);
 			boolean empty=true;  //if the new set of constraints is empty, then there is no call to the solver
-			ArrayList<Constraint> newConstraints= null; // new set of constraints
-			if (actual instanceof NodeVariable){
+			ArrayList<BooleanExpression> newConstraints= new ArrayList<BooleanExpression>() ; // new set of constraints
+			if (actual instanceof NodeVariableHLCL){
 				newConstraints= actual.getConstraints();
 				if (!newConstraints.isEmpty()){
 					empty=false;
 				}
-			}else if (actual instanceof NodeConstraint){
+			}else if (actual instanceof NodeConstraintHLCL){
 				newConstraints= actual.getConstraints();
 				if (!newConstraints.isEmpty()){
 					empty=false;
@@ -278,7 +290,7 @@ public class MinimalSetsDFSIterations {
 		logMan.writeInFile("Graph built in iteration"+ iterations+ "\n");
 		//printNetwork(subGraph);
 	
-		output= new Path<ConstraintGraph,Vertex>(subGraph, path);
+		output= new Path<ConstraintGraphHLCL,VertexHLCL>(subGraph, path);
 		return output;
 		//System.out.println("Fin while");
 //		if (direction.equals(BACKWARDS)){
@@ -314,27 +326,27 @@ public class MinimalSetsDFSIterations {
 	 * @param actual is the actual vertex
 	 * @return return the next vertex to be examined
 	 */
-	public Vertex getNextNode(Stack<Vertex> structure, Vertex actual, ConstraintGraph newG )throws Exception{
+	public VertexHLCL getNextNode(Stack<VertexHLCL> structure, VertexHLCL actual, ConstraintGraphHLCL newG )throws Exception{
 		
-		actual.setSearchState(Vertex.VISITED);
-		Vertex next;
+		actual.setSearchState(VertexHLCL.VISITED);
+		VertexHLCL next;
 		//System.out.print(actual.getId()+ ": ");
 
-		for(Vertex v: actual.getNeighbors()){
+		for(VertexHLCL v: actual.getNeighbors()){
 			
-			if (v.getSearchState()== Vertex.NOT_VISITED){
+			if (v.getSearchState()== VertexHLCL.NOT_VISITED){
 				//System.out.print(v.getId()+ ", ");
 				v.setParent(actual);
 				structure.push(v);
-				v.setSearchState(Vertex.INSTACK);
+				v.setSearchState(VertexHLCL.INSTACK);
 			}	
 		}
 		//System.out.println();
 		next= structure.pop();
 		//System.out.println();
 		//System.out.println("Vertex examined: " + next.getId()+", search state: "+ next.getSearchState()+", parent: "+ next.getParent().getId());
-		Vertex nV= next.clone();
-		Vertex parent = newG.getVertex(next.getParent().getId());
+		VertexHLCL nV= next.clone();
+		VertexHLCL parent = newG.getVertex(next.getParent().getId());
 		newG.addVertex(nV);
 		newG.addEdge(nV, parent);
 		//System.out.println("New Vertex: " + nV.getId()+", search state: "+ nV.getSearchState()+", parent: "+ nV.getParent());
@@ -346,7 +358,7 @@ public class MinimalSetsDFSIterations {
 	 * @param csp
 	 * @return
 	 */
-	public boolean evaluateSatisfatibility(ArrayList<Constraint> constraints, Vertex actual, StringBuilder sb, CSP2File csp2file){
+	public boolean evaluateSatisfatibility(ArrayList<Constraint> constraints, VertexHLCL actual, StringBuilder sb, CSP2File csp2file){
 		//Old version
 //		CSP2FileRandom csp2file= new CSP2FileRandom(csp);  //transformimng re csp object into a prolog program
 //		String programName= csp2file.transform(problemPath,count, direction);
@@ -376,16 +388,16 @@ public class MinimalSetsDFSIterations {
 	 * @param csp
 	 * @return
 	 */
-	public ConstraintGraph csp2network(CSP csp){
+	public ConstraintGraphHLCL csp2network(HlclProgram csp){
 		
-		CSP2Network csp2net= new CSP2Network(csp);
-		ConstraintGraph net= csp2net.transform();
+		HLCL2Graph o= new HLCL2Graph(csp);
+		ConstraintGraphHLCL net=  o.transform();
 		
 		return net;
 	}
 	
 	
-	public void printNetwork(ConstraintGraph net){
+	public void printNetwork(ConstraintGraphHLCL net){
 		logMan.writeInFile("\nConstraint network: \n");
 		logMan.writeInFile("Total vertices: "+net.numVertices()+
 				           " vars: "+net.getVariablesCount()+
@@ -396,7 +408,7 @@ public class MinimalSetsDFSIterations {
 		 HashMap<String,NodeVariable> vars= net.getVariables();
 		 for (String id : vars.keySet()) {
 			 logMan.writeInFile("adjacent nodes of variable "+ id + ": " );
-			 for (Vertex v: net.getNeighbors(id, Vertex.VARIABLE_TYPE)){
+			 for (VertexHLCL v: net.getNeighbors(id, VertexHLCL.VARIABLE_TYPE)){
 				 logMan.writeInFile(v.getId()+",  ");	 
 			 }
 			 logMan.writeInFile("\n");
@@ -407,7 +419,7 @@ public class MinimalSetsDFSIterations {
 		 HashMap<String,NodeConstraint> cons= net.getConstraints();
 		 for (String id : cons.keySet()) {
 			 logMan.writeInFile("adjacent nodes of constraint "+ id + ": " );
-			 for (Vertex v: net.getNeighbors(id, Vertex.CONSTRAINT_TYPE)){
+			 for (VertexHLCL v: net.getNeighbors(id, VertexHLCL.CONSTRAINT_TYPE)){
 				 logMan.writeInFile(v.getId()+",  ");	 
 			 }
 			 logMan.writeInFile("\n");
