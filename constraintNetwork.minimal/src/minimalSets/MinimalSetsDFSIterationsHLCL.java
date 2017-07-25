@@ -232,7 +232,7 @@ public class MinimalSetsDFSIterationsHLCL {
 		//Las siguientes lineas crean la parte inicial del archivo
 		StringBuilder sb= new StringBuilder();
 		Hlcl2SWIProlog parser= new Hlcl2SWIProlog();
-		parser.w
+		
 //		CSP2File csp2file= new CSP2File();
 //		csp2file.initCSPBuilder(cspIn, sb);
 		
