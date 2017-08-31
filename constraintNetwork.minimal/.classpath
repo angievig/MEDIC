@@ -2,11 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Program Files/swipl/lib/jpl.jar"/>
+	<classpathentry kind="lib" path="/Users/Angela/git/MEDIC/constraintNetwork.minimal/lib/SWIProlog/jpl723.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MEDIC.graph"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.compiler"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.hlcl"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MEDIC.csp"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.variamos.solver"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
