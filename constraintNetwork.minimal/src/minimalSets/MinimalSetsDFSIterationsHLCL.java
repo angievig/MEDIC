@@ -104,6 +104,7 @@ public class MinimalSetsDFSIterationsHLCL {
 		graph= transformer.transform();
 		iterations=0;
 		//revisar si es necesario inicializar más atributos o elementos necesarios para el algoritmo
+		times = new ArrayList<String>();
 	}
 
 	/**
@@ -475,9 +476,9 @@ public class MinimalSetsDFSIterationsHLCL {
 
 		boolean satisfiable=true; // all empty csp is satisfiable
 		VertexHLCL actual=stack.pop(); //initializing the loop with a vertex
-		//VertexHLCL clon= actual.clone();
+		VertexHLCL clon= actual.clone();
 
-		subGraph.addVertex(actual.clone());
+		subGraph.addVertex(clon);
 		//printNetwork(subGraph);
 		//visited.add(actual);
 		
@@ -604,7 +605,7 @@ public class MinimalSetsDFSIterationsHLCL {
 		time+= "; " + (endTime - startTime); 
 	
 
-		times.add(time);
+		//times.add(time);
 		return evaluation;
 	}
 	/**
