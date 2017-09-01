@@ -1,4 +1,4 @@
-package minimalSets;
+package minimal.util;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;

@@ -2,6 +2,7 @@ package graphHLCL;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.TreeSet;
 
 import com.variamos.hlcl.BooleanExpression;
@@ -25,7 +26,7 @@ public abstract class VertexHLCL implements Comparable<VertexHLCL>{
 	public static final int NOT_VISITED=0;
 	private  String id;
 	//private ArrayList<Constraint> constraints;
-	private ArrayList<BooleanExpression> constraints;
+	private HlclProgram constraints;
 
 
 	private TreeSet <VertexHLCL> neighbors;
@@ -39,7 +40,7 @@ public abstract class VertexHLCL implements Comparable<VertexHLCL>{
 	public void initialize(String id){
 		this.id=id;
 		neighbors= new TreeSet<VertexHLCL>(); 
-		constraints= new ArrayList<BooleanExpression>();
+		constraints= new HlclProgram();
 		searchState= NOT_VISITED;
 		parent= null;
 	}
@@ -91,12 +92,12 @@ public abstract class VertexHLCL implements Comparable<VertexHLCL>{
 //		
 //	}
 	
-	public ArrayList<BooleanExpression> getConstraints(){
+	public HlclProgram getConstraints(){
 		return constraints;
 	}
 
 
-	public void setConstraints(ArrayList<BooleanExpression> constraints) {
+	public void setConstraints(HlclProgram constraints) {
 		this.constraints = constraints;
 	}
 	public boolean addConstraint(BooleanExpression c){

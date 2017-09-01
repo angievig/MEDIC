@@ -19,6 +19,7 @@ import graph.ConstraintGraph;
 import graph.NodeConstraint;
 import graph.NodeVariable;
 import graph.Vertex;
+import minimal.util.LogManager;
 import transform.CSP2File;
 import transform.CSP2FileRandom;
 import transform.CSP2Network;

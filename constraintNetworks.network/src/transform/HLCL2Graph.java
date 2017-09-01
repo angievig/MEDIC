@@ -11,17 +11,19 @@ import graphHLCL.ConstraintGraphHLCL;
 
 public class HLCL2Graph {
 	private HlclProgram prog;
-	private ConstraintGraphHLCL net;
+	private ConstraintGraphHLCL graph;
 	
 	public HLCL2Graph( HlclProgram prog){
 		this.prog= prog;
-		net= new ConstraintGraphHLCL();
+		graph= new ConstraintGraphHLCL();
 	}
 	
 	public ConstraintGraphHLCL transform(){
 		
 		
 		for (BooleanExpression booleanExpression : prog) {
+			
+			//For each constraint ih the HLCL program, obtain the identifiers in the constraint
 			Set<Identifier> vars=  HlclUtil.getUsedIdentifiers(booleanExpression);
 			
 			//in the case a constraint is a version constraint, version constraints contains just one variable
@@ -29,22 +31,20 @@ public class HLCL2Graph {
 			
 			if (vars.size() ==1){
 				for (Identifier identifier : vars) {
-					net.addUnaryConstraint(booleanExpression, identifier);
+					//System.out.println("adding unary");
+					graph.addUnaryConstraint(booleanExpression, identifier);
 				}
 				
 			}
 			//if is a regular constraint
 			else{
-				net.addConstraint(booleanExpression);
+				//System.out.println("adding constraint");
+				graph.addConstraint(booleanExpression);
 			}
 			
 		}
 		
-
-
-			
-		
-		return net;
+		return graph;
 	}
 
 }

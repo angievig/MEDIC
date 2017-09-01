@@ -8,7 +8,7 @@ import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
 import individual.MinimalFelferning;
-import minimalSets.LogManager;
+import minimal.util.LogManager;
 import minimalSets.MinimalSetsDFS;
 import minimalSets.MinimalSetsDFSNoLog;
 import prologParser.XCSPPrologParser;

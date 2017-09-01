@@ -9,7 +9,7 @@ import cspElements.Constraint;
 import cspElements.Variable;
 import graph.ConstraintGraph;
 import individual.MinimalFelferning;
-import minimalSets.LogManager;
+import minimal.util.LogManager;
 import minimalSets.MinimalSetsDFS;
 import minimalSets.MinimalSetsDFSBuilder;
 import minimalSets.MinimalSetsDFSNoLog;

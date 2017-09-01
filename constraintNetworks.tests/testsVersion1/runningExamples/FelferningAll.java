@@ -12,7 +12,7 @@ import cspElements.Variable;
 import graph.ConstraintGraph;
 import graph.Vertex;
 import graphicConstraintNetwork.Window;
-import minimalSets.LogManager;
+import minimal.util.LogManager;
 import minimalSets.MinimalSetsDFSBuilder;
 import minimalSets.MinimalSetsDFSIterations;
 import prologParser.XCSPPrologParser;

@@ -6,8 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,6 +34,7 @@ import graphHLCL.ConstraintGraphHLCL;
 import graphHLCL.NodeConstraintHLCL;
 import graphHLCL.NodeVariableHLCL;
 import graphHLCL.VertexHLCL;
+import minimal.util.LogManager;
 //import transform.CSP2File;
 //import transform.CSP2FileRandom;
 import transform.HLCL2Graph;
@@ -94,9 +98,10 @@ public class MinimalSetsDFSIterationsHLCL {
 	 * @param csp
 	 * @param net
 	 */
-	public MinimalSetsDFSIterationsHLCL(HlclProgram csp, ConstraintGraphHLCL net){
+	public MinimalSetsDFSIterationsHLCL(HlclProgram csp){
 		cspIn= csp;
-		graph= net;
+		HLCL2Graph transformer= new HLCL2Graph(cspIn);
+		graph= transformer.transform();
 		iterations=0;
 		//revisar si es necesario inicializar más atributos o elementos necesarios para el algoritmo
 	}
@@ -218,6 +223,13 @@ public class MinimalSetsDFSIterationsHLCL {
 	 */
 	
 	public LinkedList<VertexHLCL> sourceOfInconsistentConstraintsLog(String source, int maxIterations){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		String testName=date.toString();
+		logMan= new LogManager("/Users/Angela/Test/", testName);
+		logMan.initLog();
+		
+		logMan.writeInFile("Starting test of the MEDIC diagnosis algorithm, file: "+testName + "\n");
 
 		/*
 		 * Each search returns a subset of the graph and the sequence of visited vetrices, all wrapped
@@ -237,11 +249,12 @@ public class MinimalSetsDFSIterationsHLCL {
 			/*
 			 * Lines to debug, (un)comment till the beginning of the do-while
 			 */
-			System.out.println("Size of path iteration No.1: " + path.getPath().size());
+			logMan.writeInFile("Size of path iteration No.1: " + path.getPath().size());
+			logMan.writeInFile("\n");
 			for (VertexHLCL vertex : path.getPath()) {
-				System.out.print(vertex.getId()+ " ");
+				logMan.writeInFile(vertex.getId()+ " ");
 			}
-			System.out.println();
+			logMan.writeInFile("\n");
 			
 			iterations++;
 			source= path.getPath().getLast().getId(); // source for the following iterations
@@ -251,7 +264,8 @@ public class MinimalSetsDFSIterationsHLCL {
 			HlclProgram csp = path.getSubProblem();
 
 			do{
-//				System.out.println("Iteration "+ count);
+				logMan.writeInFile("Iteration "+ iterations);
+				logMan.writeInFile("\n");
 				previousLength= path.getPath().size();
 				path = searchPathLog(source, subGraph, csp);
 				source= path.getPath().getLast().getId();
@@ -259,19 +273,19 @@ public class MinimalSetsDFSIterationsHLCL {
 				maxIterations--;
 				iterations++;
 
-				System.out.println("Size of path iteration No.: " + path.getPath().size());
+				logMan.writeInFile("Size of path iteration No.: " + path.getPath().size() + "\n");
 				for (VertexHLCL vertex : path.getPath()) {
-					System.out.print(vertex.getId()+ " ");
+					logMan.writeInFile(vertex.getId()+ " ");
 				}
-				System.out.println();
+				logMan.writeInFile("\n");
 				
 			}
 			while(maxIterations>0 && previousLength> path.getPath().size());
 			
 			if (! (maxIterations>0)){
-				System.out.println("Execution termined for reaching a the maximun of iterations");
+				logMan.writeInFile("Execution termined for reaching a the maximun of iterations"+ "\n");
 			}else{
-				System.out.println("Execution termided for reaching a fixed point after " +  iterations+ " iterations" );
+				logMan.writeInFile("Execution termided for reaching a fixed point after " +  iterations+ " iterations" +"\n");
 			}
 			
 			
@@ -286,33 +300,9 @@ public class MinimalSetsDFSIterationsHLCL {
 			//writeInFile(e.getMessage());
 			e.printStackTrace();
 		}
+		logMan.closeLog();
 		return path.getPath();
 		
-		//TODO Estas lineas est�n ocultas para la ejecuci�n de pruebas
-		
-		//FIXME 
-//		logMan.writeInFile("Number of iterations: "+ iterations+"\n"); 
-//		logMan.writeInFile("Backwards path: \n"); 
-//		for (Vertex v : backwardsdPath) {
-//			logMan.writeInFile(v.getId()+", ");
-//			
-//		}
-//		
-//		logMan.writeInFile("\nforward path: \n");
-//		for (Vertex v : forwardPath) {
-//			logMan.writeInFile(v.getId()+", ");
-//			
-//		}
-//		
-//		logMan.writeInFile("\nExecution times: \n");
-//		logMan.writeInFile("File - Prolog \n");
-//		for (String s : times) {
-//			logMan.writeInFile(s+"\n");
-//			
-//		}
-//		logMan.writeInFile("\n");
-		
-	
 	}
 	public LinkedList<VertexHLCL> recoverPath(VertexHLCL v, LinkedList<VertexHLCL> path){
 		
@@ -529,7 +519,7 @@ public class MinimalSetsDFSIterationsHLCL {
 //		logMan.writeInFile("Initial graph"+"\n");
 //		printNetwork(graph);
 //		
-		logMan.writeInFile("Graph built in iteration"+ iterations+ "\n");
+		//logMan.writeInFile("Graph built in iteration"+ iterations+ "\n");
 		//printNetwork(subGraph);
 	
 		output= new Path<ConstraintGraphHLCL,VertexHLCL>(subGraph, path, subProblem);

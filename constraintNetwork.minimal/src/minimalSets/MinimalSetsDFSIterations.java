@@ -15,6 +15,7 @@ import graph.ConstraintGraph;
 import graph.NodeConstraint;
 import graph.NodeVariable;
 import graph.Vertex;
+import minimal.util.LogManager;
 import transform.CSP2File;
 import transform.CSP2Network;
 
@@ -166,7 +167,7 @@ public class MinimalSetsDFSIterations {
 		}
 		return path.getPath();
 		
-		//TODO Estas lineas están ocultas para la ejecución de pruebas
+		//TODO Estas lineas estï¿½n ocultas para la ejecuciï¿½n de pruebas
 		
 		//FIXME 
 //		logMan.writeInFile("Number of iterations: "+ iterations+"\n"); 
@@ -342,7 +343,7 @@ public class MinimalSetsDFSIterations {
 		return next;
 	}
 	/**
-	 * Modificado para añadir las restricciones y crear el archivo a partir del stringBuilder
+	 * Modificado para aï¿½adir las restricciones y crear el archivo a partir del stringBuilder
 	 * @param csp
 	 * @return
 	 */

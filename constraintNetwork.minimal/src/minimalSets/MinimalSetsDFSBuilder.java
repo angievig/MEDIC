@@ -19,6 +19,7 @@ import graph.ConstraintGraph;
 import graph.NodeConstraint;
 import graph.NodeVariable;
 import graph.Vertex;
+import minimal.util.LogManager;
 import transform.CSP2File;
 import transform.CSP2FileRandom;
 import transform.CSP2Network;
@@ -129,7 +130,7 @@ public class MinimalSetsDFSBuilder {
 			
 		}
 		
-		//TODO Estas lineas están ocultas para la ejecución de pruebas
+		//TODO Estas lineas estï¿½n ocultas para la ejecuciï¿½n de pruebas
 		//logMan.writeInFile("Number of iterations: "+ iterations+"\n"); 
 		
 		logMan.writeInFile("inconsistent vertices: \n"); 
@@ -268,7 +269,7 @@ public class MinimalSetsDFSBuilder {
 		return structure.pop();
 	}
 	/**
-	 * Modificado para añadir las restricciones y crear el archivo a partir del stringBuilder
+	 * Modificado para aï¿½adir las restricciones y crear el archivo a partir del stringBuilder
 	 * @param csp
 	 * @return
 	 */

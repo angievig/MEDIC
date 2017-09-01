@@ -80,7 +80,7 @@ public class ConstraintGraphHLCL {
 	 */
 	public void addVertex(VertexHLCL v){
 		
-		//FIXME acomodar aquí los llamados al constructor de cada uno de los vértices
+		//FIXME acomodar aquï¿½ los llamados al constructor de cada uno de los vï¿½rtices
 		if (v instanceof NodeConstraintHLCL){
 			//Constraint c = 
 			//addConstraint(((NodeConstraintHLCL) v).getConstraint());
@@ -210,11 +210,19 @@ public class ConstraintGraphHLCL {
 		boolean exit=false;
 		String id= var.getId();
 		NodeVariableHLCL varN=variables.get(id);
-		
-		if (var!=null){
+		// case 1: the variable exists
+		if (varN!=null){
 			exit= varN.addConstraint(cons);
 			constraintsCount++;
 			edges++;
+		}
+		//case 2: the variable does not exists
+		else{
+			varN= addVariable(var);
+			exit= varN.addConstraint(cons);
+			constraintsCount++;
+			edges++;
+			
 		}
 		return exit;
 		
@@ -225,17 +233,17 @@ public class ConstraintGraphHLCL {
 	 * @param id variable's identifier 
 	 * @param domain name of the domain
 	 */
-	public boolean addVariable(Identifier var){
-		boolean exit=true;
+	public NodeVariableHLCL addVariable(Identifier var){
 		
-		NodeVariableHLCL varNode = new NodeVariableHLCL(var);
+		NodeVariableHLCL varNode = null;
+		System.out.println(var.getId());
 		if (!variables.containsKey(var.getId())){
+			varNode = new NodeVariableHLCL(var);
 			variables.put(var.getId(), varNode);
 			variablesCount++;
 		}
-		else
-			exit= false;
-		return exit;
+	
+		return varNode;
 	}
 	
 	public int getConstraintsCount(){
