@@ -23,21 +23,26 @@ public class NodeConstraintHLCL extends VertexHLCL {
 	private TreeSet <NodeVariableHLCL> neighbors;
 	
 	//FIXME el ide debe ser el id de la interfaz de variamos
+	
+	public BooleanExpression getConstraint(){
+		return constraint;
+	}
 	public NodeConstraintHLCL (String id, BooleanExpression c){
 		initialize(id);
 		constraint= c;
-		
+		addConstraint(c);
 		//cons= c;
 	}
 	
-	public String toString(){
-		return  this.constraint.toString();
-	}
 	
 	public NodeConstraintHLCL clone(){
 		NodeConstraintHLCL clon= new NodeConstraintHLCL(this.getId(), this.constraint);
 		return clon;
 				
+	}
+	
+	public String toString(){
+		return getId()+ " "+ constraint.toString();
 	}
 	
 

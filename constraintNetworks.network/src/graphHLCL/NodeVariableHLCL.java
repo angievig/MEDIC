@@ -36,6 +36,10 @@ public class NodeVariableHLCL extends VertexHLCL {
 		
 		return clon;
 	}
+	
+	public String toString(){
+		return getId();
+	}
 
 	
 

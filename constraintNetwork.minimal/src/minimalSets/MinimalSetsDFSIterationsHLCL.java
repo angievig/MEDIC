@@ -135,84 +135,7 @@ public class MinimalSetsDFSIterationsHLCL {
  * @param maxIterations
  * @return
  */
-//	public LinkedList<VertexHLCL> sourceOfInconsistentConstraints(String source, int maxIterations){
-//
-//		/*
-//		 * Each search returns a subset of the graph and the sequence of visited vetrices, all wrapped
-//		 * in a Path object
-//		 */
-//		Path<ConstraintGraphHLCL,VertexHLCL> path = new Path<ConstraintGraphHLCL,VertexHLCL>();
-//
-//		iterations=0; //number of iterations of a call in the diagnosis algorithm
-//		//newLines
-//		//TODO llamado a un metodo que pone las variables y el dominio del CCP en el stringBuilder 
-//		// se inicializa con las variables y los dominios del csp inconsistente 
-//
-//		//csp2file.initCSPBuilder(cspIn, sb);
-//		
-//		try{
-//			
-//			long startTime = System.currentTimeMillis();
-//			path = searchPath(source, graph);
-//			// one search is already done
-//			
-//			iterations++;
-//			source= path.getPath().getLast().getId(); // source for the following iterations
-//			int previousLength; //Length of the path
-//			//list = recoverPath( path0.getPath().getLast(), list);
-//			ConstraintGraphHLCL subGraph= path.getSubset(); //subgraph
-//			
-//			
-//			/*
-//			 * Lines to debug, (un)comment till the beginning of the do-while
-//			 */
-////			System.out.println("Size of path iteration No.1: " + path.getPath().size());
-////			for (VertexHLCL vertex : path.getPath()) {
-////				System.out.print(vertex.getId()+ " ");
-////			}
-////			System.out.println();
-//			
-//
-//			do{
-////				System.out.println("Iteration "+ count);
-//				previousLength= path.getPath().size();
-//				path = searchPath(source, subGraph);
-//				source= path.getPath().getLast().getId();
-//				subGraph= path.getSubset();
-//				maxIterations--;
-//				iterations++;
-//
-//				System.out.println("Size of path iteration No.: " + path.getPath().size());
-//				for (VertexHLCL vertex : path.getPath()) {
-//					System.out.print(vertex.getId()+ " ");
-//				}
-//				System.out.println();
-//				
-//			}
-//			while(maxIterations>0 && previousLength> path.getPath().size());
-//			
-//			if (! (maxIterations>0)){
-//				System.out.println("Execution termined for reaching a the maximun of iterations");
-//			}else{
-//				System.out.println("Execution termided for reaching a fixed point after " +  iterations+ " iterations" );
-//			}
-//			
-//			
-//			long endTime = System.currentTimeMillis();
-//
-//			
-//			//TODO comentar estas lineas para pruebas de performance
-//			//logMan.writeInFile((endTime - startTime) + "\t");
-//			logMan.writeInFile("Total execution: "+(endTime - startTime) + "\n");
-//		}catch (Exception e){
-//			logMan.writeInFile("Execution suspended, runTime error \n"+ e.toString());
-//			//writeInFile(e.getMessage());
-//			e.printStackTrace();
-//		}
-//		return path.getPath();
-//	
-//	}
-//	
+
 	/**
 	 *  Diagnosis algorithms main loop. This loop performs a defined number of searches, or until an answer can't be 
 	 *  improved (the length of the path can't be reduced)
@@ -327,108 +250,7 @@ public class MinimalSetsDFSIterationsHLCL {
 	 * @return path is a linked-list containing the sequence of visited vertices.  
 	 * The last vertex in path is the inconsistent contains the inconsistent constraint
 	 */
-//	public Path<ConstraintGraphHLCL,VertexHLCL> searchPath(String source, ConstraintGraphHLCL graphIn) throws Exception{
-//		
-//		logMan.writeInFile("\nConstraint graph in iteration "+ iterations+ "\n");
-//		printNetwork(graphIn);
-//		ConstraintGraphHLCL subGraph = new ConstraintGraphHLCL();
-//		Path<ConstraintGraphHLCL,VertexHLCL> output= null;
-//		//Estas lineas permiten que la creacion del archivo sea incremental, se crea el string builder 
-//		//Las siguientes lineas crean la parte inicial del archivo
-//		StringBuilder sb= new StringBuilder();
-//		parser= new Hlcl2SWIProlog();
-//		PrologTransformParameters params = new PrologTransformParameters();
-//		params.setStage(StageInTransformation.Initial);
-//		sb.append(parser.transform(cspIn, params));
-//		System.out.println(parser.transform(cspIn, params));
-//		
-////		CSP2File csp2file= new CSP2File();
-////		csp2file.initCSPBuilder(cspIn, sb);
-//		//start the hlcl file
-//		
-//		LinkedList<VertexHLCL> path= new LinkedList<VertexHLCL>(); // the output
-//		Stack<VertexHLCL> stack= new Stack<VertexHLCL>();  //data structure used to perform the Depth First Search
-//
-//		stack.push(graphIn.getVertex(source)); // the data structure starts with the source vertex
-//		//ArrayList<Vertex> visited= new ArrayList<Vertex> (); // table of visited vertices 
-//
-//		boolean satisfiable=true; // all empty csp is satisfiable
-//		VertexHLCL actual=stack.pop(); //initializing the loop with a vertex
-//		VertexHLCL clon= actual.clone();
-//		//System.out.println("root: " + actual.getId()+", search state: "+ actual.getSearchState()+", actual: "+ clon.getParent());
-//		//System.out.println("root clon: " + clon.getId()+", search state: "+ clon.getSearchState()+", parent: "+ clon.getParent());
-//		subGraph.addVertex(actual.clone());
-//		//printNetwork(subGraph);
-//		//visited.add(actual);
-//		
-//		int count=1;// number of iterations
-//
-//
-//		//While the CSP is satisfiable
-//		while(satisfiable){
-//			path.addLast(actual);
-//			boolean empty=true;  //if the new set of constraints is empty, then there is no call to the solver
-//			List<BooleanExpression> newConstraints= new LinkedList<BooleanExpression>() ; // new set of constraints
-//			if (actual instanceof NodeVariableHLCL){
-//				newConstraints= (HlclProgram) actual.getConstraints();
-//				if (!newConstraints.isEmpty()){
-//					empty=false;
-//				}
-//			}else if (actual instanceof NodeConstraintHLCL){
-//				newConstraints= actual.getConstraints();
-//				if (!newConstraints.isEmpty()){
-//					empty=false;
-//				}	
-//			}
-//			//if the set of constraints is different to empty, then the satisfiability of the SCP is evaluated
-//			if (!empty)
-//				satisfiable= evaluateSatisfatibility(newConstraints, actual, sb);
-////			writeLog(actual, count, satisfiable, newConstraints, direction);
-//
-//			// if the csp is satisfiable, then the traverse of the constraint network continues.
-//			if(satisfiable){
-//				actual=getNextNode(stack, actual,subGraph);
-//				//actual=getNextNode(stack, actual, visited, subGraph);
-//				//visited.add(actual);
-//				count++;
-//			}
-//		}
-//		
-////		logMan.writeInFile("Initial graph"+"\n");
-////		printNetwork(graph);
-////		
-//		logMan.writeInFile("Graph built in iteration"+ iterations+ "\n");
-//		//printNetwork(subGraph);
-//	
-//		output= new Path<ConstraintGraphHLCL,VertexHLCL>(subGraph, path);
-//		return output;
-//		//System.out.println("Fin while");
-////		if (direction.equals(BACKWARDS)){
-////			backwardsdPath= visited;
-////			//TODO quitar estas lineas para la prueba de performance
-////			logMan.writeInFile("Number of backwards iterations: "+ count+ "\n"); 
-////		}
-////		else{
-////			//System.out.println("llamado backwards");
-////			// initialize the variables for call the algorithm
-////			//CSP newCSP = new CSP(); // se crea un nuevo CSP
-////			//newCSP.setVariables(csp.getVariables()); // //
-////			//newCSP.setDomains(csp.getDomains());
-////			forwardPath=visited;
-////			sb= new StringBuilder();
-////			csp2file.initCSPBuilder(cspIn, sb);
-////			//csp.setEmptyConstraints(); //the algorithm starts with an empty set of constraints
-////			//writeInFile("Starting backwards iteration, actual node "+ actual.getId() +"\n");
-////			//TODO quitar estas lineas para la prueba de performance
-////			
-////			logMan.writeInFile("Number of fordwards iterations: "+ count+ "\n"); 
-////			searchPath(actual.getId(),cc, BACKWARDS);
-////
-////
-////		}
-//
-//
-//	}
+
 	
 	/**
 	 * This method performs a DFS until an insatisfiable constraint is found
@@ -483,20 +305,21 @@ public class MinimalSetsDFSIterationsHLCL {
 		//visited.add(actual);
 		
 		int count=1;// number of nodes to visit 
+		HlclProgram newConstraints= null ; // new set of constraints
 
 
 		//While the CSP is satisfiable
 		while(satisfiable){
 			path.addLast(actual);
 			boolean empty=true;  //if the new set of constraints is empty, then there is no call to the solver
-			HlclProgram newConstraints= null ; // new set of constraints
+			
 			if (actual instanceof NodeVariableHLCL){
 				newConstraints= actual.getConstraints();
 				if (!newConstraints.isEmpty()){
 					empty=false;
 				}
 			}else if (actual instanceof NodeConstraintHLCL){
-				newConstraints= actual.getConstraints();
+				newConstraints=  actual.getConstraints();
 				if (!newConstraints.isEmpty()){
 					empty=false;
 				}	
@@ -504,9 +327,9 @@ public class MinimalSetsDFSIterationsHLCL {
 			//if the set of constraints is different to empty, then the satisfiability of the SCP is evaluated
 			if (!empty){
 				subProblem.addAll(newConstraints);
-				satisfiable= evaluateSatisfatibility(newConstraints, actual);
+				satisfiable= evaluateSatisfatibility(subProblem, actual);
 			}
-//			writeLog(actual, count, satisfiable, newConstraints, direction);
+			//writeLog(actual, count, satisfiable, newConstraints, stack);
 
 			// if the csp is satisfiable, then the traverse of the constraint network continues.
 			if(satisfiable){
@@ -629,41 +452,46 @@ public class MinimalSetsDFSIterationsHLCL {
 				           " cons: "+net.getConstraintsCount()+
 				           " Total edges: "+net.numEdges()+  "\n");
 		
+		StringBuilder vecinos= new StringBuilder();
+		
 		logMan.writeInFile("Problem variables\n");
 		 HashMap<String,NodeVariableHLCL> vars= net.getVariables();
 		 for (String id : vars.keySet()) {
-			 logMan.writeInFile("adjacent nodes of variable "+ id + ": " );
+			 logMan.writeInFile(id+"\n");
+			 vecinos.append("adjacent nodes of variable "+ id + ": " );
 			 for (VertexHLCL v: net.getNeighbors(id, VertexHLCL.VARIABLE_TYPE)){
-				 logMan.writeInFile(v.getId()+",  ");	 
+				 vecinos.append(v.getId()+",  ");	 
 			 }
-			 logMan.writeInFile("\n");
+			 vecinos.append("\n");
 		}
 		 
 		//neighbors for constraint nodes
 		 logMan.writeInFile("Problem constraints\n");
 		 HashMap<String,NodeConstraintHLCL> cons= net.getConstraints();
 		 for (String id : cons.keySet()) {
-			 logMan.writeInFile("adjacent nodes of constraint "+ id + ": " );
+			 logMan.writeInFile(id+"\n");
+			 vecinos.append("adjacent nodes of constraint "+ id + ": " );
 			 for (VertexHLCL v: net.getNeighbors(id, VertexHLCL.CONSTRAINT_TYPE)){
-				 logMan.writeInFile(v.getId()+",  ");	 
+				 vecinos.append(v.getId()+",  ");	 
 			 }
-			 logMan.writeInFile("\n");
+			 vecinos.append("\n");
 		}
+		 logMan.writeInFile(vecinos.toString());
 	}
-//	public void writeLog(Vertex actual, int count, boolean satisfiable, ArrayList<Constraint> newConstraints, String direction){
-//
-//		String sentences= "Iteration No."+ count+  direction +" Vertex id= "+ actual.getId()+"\n" + "vertex type: "+
-//				          ((actual instanceof NodeConstraint)?"Constraint ": "Variable ");
-//		sentences += "the CSP in this iteration is "+ ((satisfiable)?"satisfiable\n": "not satisfiable\n");
-//		if (!satisfiable){
-//			sentences+= "The constraints that made inconsistent the csp are \n";
-//			for (Constraint constraint : actual.getConstraints()) {
-//				sentences+= "Constraint: "+ constraint.getExpression()+ "\n";
-//			}
-//			
-//		}
-//		writeInFile(sentences);
-//	}
+	public void writeLog(VertexHLCL actual, int count, boolean satisfiable, HlclProgram newConstraints){
+
+		String sentences= "Iteration No."+ count +" Vertex id= "+ actual.getId()+"\n" + "vertex type: "+
+				          ((actual instanceof NodeConstraintHLCL)?"Constraint ": "Variable ");
+		sentences += "the CSP in this iteration is "+ ((satisfiable)?"satisfiable\n": "not satisfiable\n");
+		if (!satisfiable){
+			sentences+= "The constraints that made inconsistent the csp are \n";
+			for (BooleanExpression constraint : actual.getConstraints()) {
+				sentences+= "Constraint: "+ constraint.toString()+ "\n";
+			}
+			
+		}
+		logMan.writeInFile(sentences);
+	}
 //	
 //	public void initLog(){
 //		 Timestamp timestamp = new Timestamp(System.currentTimeMillis());

@@ -65,13 +65,7 @@ public class ConstraintGraphHLCL {
 		//graph= new UndirectedSparseGraph<Vertex,String>();
 	}
 	
-	public int numEdges(){
-		return edges;
-	}
-	
-	public int numVertices(){
-		return constraintsCount+variablesCount;
-	}
+
 	
 	/**
 	 * For include a vertex in the network
@@ -183,6 +177,8 @@ public class ConstraintGraphHLCL {
 					var= new NodeVariableHLCL(identifier);
 					variables.put(identifier.getId(), var);
 					variablesCount++;
+					System.out.println("adding variable: "+var.toString());
+
 					
 				}
 				// in all cases, add the new constraint to the variables neighbors
@@ -192,6 +188,7 @@ public class ConstraintGraphHLCL {
 				edges++;
 			}
 			constraints.put(id, newNode);
+			System.out.println("adding constraint: "+newNode.toString());
 		}
 		
 	}
@@ -215,6 +212,8 @@ public class ConstraintGraphHLCL {
 			exit= varN.addConstraint(cons);
 			constraintsCount++;
 			edges++;
+			System.out.println("adding unary constraint to existent var: "+varN.toString());
+
 		}
 		//case 2: the variable does not exists
 		else{
@@ -222,6 +221,8 @@ public class ConstraintGraphHLCL {
 			exit= varN.addConstraint(cons);
 			constraintsCount++;
 			edges++;
+			System.out.println("adding unary constraint to a new var: "+varN.toString());
+
 			
 		}
 		return exit;
@@ -236,12 +237,13 @@ public class ConstraintGraphHLCL {
 	public NodeVariableHLCL addVariable(Identifier var){
 		
 		NodeVariableHLCL varNode = null;
-		System.out.println(var.getId());
+		//System.out.println(var.getId());
 		if (!variables.containsKey(var.getId())){
 			varNode = new NodeVariableHLCL(var);
 			variables.put(var.getId(), varNode);
 			variablesCount++;
 		}
+		System.out.println("adding variable " + varNode.toString());
 	
 		return varNode;
 	}
@@ -328,5 +330,11 @@ public class ConstraintGraphHLCL {
 		}
 	}
 
-
+	public int numEdges(){
+		return edges;
+	}
+	
+	public int numVertices(){
+		return constraintsCount+variablesCount;
+	}
 }
