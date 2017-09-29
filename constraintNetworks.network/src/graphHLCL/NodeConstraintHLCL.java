@@ -4,7 +4,8 @@ package graphHLCL;
 
 import java.util.TreeSet;
 
-import com.variamos.hlcl.BooleanExpression;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+
 //import com.variamos.hlcl.HlclProgram;
 
 //import com.variamos.hlcl.BooleanExpression;
@@ -12,7 +13,7 @@ import com.variamos.hlcl.BooleanExpression;
 
 
 public class NodeConstraintHLCL extends VertexHLCL {
-	private BooleanExpression constraint;
+	private IntBooleanExpression constraint;
 
 	/**
 	 * Creates a new constraint node.  
@@ -24,10 +25,10 @@ public class NodeConstraintHLCL extends VertexHLCL {
 	
 	//FIXME el ide debe ser el id de la interfaz de variamos
 	
-	public BooleanExpression getConstraint(){
+	public IntBooleanExpression getConstraint(){
 		return constraint;
 	}
-	public NodeConstraintHLCL (String id, BooleanExpression c){
+	public NodeConstraintHLCL (String id, IntBooleanExpression c){
 		initialize(id);
 		constraint= c;
 		addConstraint(c);

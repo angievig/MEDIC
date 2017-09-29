@@ -2,7 +2,6 @@ package runningExamples;
 
 import cases.CarElectronics;
 import common.TestCase;
-import graph.ConstraintGraph;
 
 public class CarElectronicsTest {
 	

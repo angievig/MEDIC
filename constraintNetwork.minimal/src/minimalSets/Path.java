@@ -2,7 +2,7 @@ package minimalSets;
 
 import java.util.LinkedList;
 
-import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.core.HlclProgram;
 
 import graph.ConstraintGraph;
 import graph.Vertex;

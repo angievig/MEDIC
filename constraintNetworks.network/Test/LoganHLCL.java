@@ -8,16 +8,16 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.variamos.compiler.prologEditors.Hlcl2SWIProlog;
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.ComparisonExpression;
-import com.variamos.hlcl.Domain;
-import com.variamos.hlcl.HlclFactory;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.Identifier;
-import com.variamos.hlcl.IntervalDomain;
-import com.variamos.hlcl.NumericIdentifier;
-import com.variamos.hlcl.RangeDomain;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.domains.IntervalDomain;
+import com.variamos.hlcl.model.expressions.ComparisonExpression;
+import com.variamos.hlcl.model.expressions.HlclFactory;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
+import com.variamos.hlcl.model.expressions.NumericIdentifier;
+import com.variamos.solver.core.compiler.Hlcl2SWIProlog;
+
+
 
 
 public class LoganHLCL {
@@ -25,7 +25,7 @@ public class LoganHLCL {
 	static HlclProgram prog = new HlclProgram();
 	static private Identifier  carBody, brakes, driveWheel, engine, tyreType;
 	static private NumericIdentifier uno, dos, tres, cuatro, cinco;
-	static private BooleanExpression c1, c2, c3, c4, c5 ;
+	static private IntBooleanExpression c1, c2, c3, c4, c5 ;
 	static private ComparisonExpression oc1, oc2, oc3;
 	
 	
@@ -79,7 +79,7 @@ public class LoganHLCL {
 		/*
 		 * 1. componer la expresion de forma binaria para cada restriccion
 		 * 2. escribir la restriccion
-		 * 3. añadir la restriccion
+		 * 3. aï¿½adir la restriccion
 		 */
 		// c1= new Constraint("C1","Carbody#= 1 #==> TyreType#\\=1");
 		
@@ -91,7 +91,7 @@ public class LoganHLCL {
 
 		
 		// C2= (Carbody#= 1 #==> Brakes#=1)  #/\\ (Carbody#= 2 #==> Brakes#=2)
-		BooleanExpression c2Left, c2Right;
+		IntBooleanExpression c2Left, c2Right;
 		ComparisonExpression c2Left_left, c2Left_right, c2Right_left, c2Right_right;
 		c2Left_left= f.equals(carBody, uno);
 		c2Left_right= f.equals(brakes, uno);
@@ -104,7 +104,7 @@ public class LoganHLCL {
 
 		
 		//c3= new Constraint("C3","Carbody#= 3 #==> (Brakes#=3 #/\\ DriveWheel#=2)");
-		BooleanExpression c3Right;
+		IntBooleanExpression c3Right;
 		ComparisonExpression c3Left, c3Right_left, c3Right_right;
 		c3Left= f.equals(carBody, tres);
 		c3Right_left= f.equals(brakes, tres);

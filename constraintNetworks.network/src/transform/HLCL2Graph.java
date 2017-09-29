@@ -2,10 +2,10 @@ package transform;
 
 import java.util.Set;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.HlclUtil;
-import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.core.HlclUtil;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 
 import graphHLCL.ConstraintGraphHLCL;
 
@@ -21,7 +21,7 @@ public class HLCL2Graph {
 	public ConstraintGraphHLCL transform(){
 		
 		
-		for (BooleanExpression booleanExpression : prog) {
+		for (IntBooleanExpression booleanExpression : prog) {
 			
 			//For each constraint ih the HLCL program, obtain the identifiers in the constraint
 			Set<Identifier> vars=  HlclUtil.getUsedIdentifiers(booleanExpression);

@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclProgram;
+import com.variamos.hlcl.core.HlclProgram;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 
 import cspElements.Constraint;
 
@@ -100,7 +100,7 @@ public abstract class VertexHLCL implements Comparable<VertexHLCL>{
 	public void setConstraints(HlclProgram constraints) {
 		this.constraints = constraints;
 	}
-	public boolean addConstraint(BooleanExpression c){
+	public boolean addConstraint(IntBooleanExpression c){
 		return constraints.add(c);
 	}
 	

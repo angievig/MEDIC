@@ -10,10 +10,9 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.HlclUtil;
-import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.core.HlclUtil;
+import com.variamos.hlcl.model.expressions.Identifier;
+import com.variamos.hlcl.model.expressions.IntBooleanExpression;
 
 import graph.ConstraintGraph;
 import graph.NodeConstraint;
@@ -120,7 +119,7 @@ public class ConstraintGraphHLCL {
 	 * @param vars debe ser una lista o arreglo de expresiones de variables.  
 	 * En la versión 0 las expresiones variable son objetos de la clase Variable
 	 */
-	public void addConstraint(BooleanExpression cons){
+	public void addConstraint(IntBooleanExpression cons){
 		constraintsCount++; //number of constraints in the problem, could be different than the number of nodes 
 		String id="C"+constraintsCount ;  //the id of the node constraint is a consecutive
 		NodeConstraintHLCL newNode =null; //the new constraint node
@@ -203,7 +202,7 @@ public class ConstraintGraphHLCL {
 //		return exit;
 //	}
 	
-	public boolean addUnaryConstraint(BooleanExpression cons, Identifier var){
+	public boolean addUnaryConstraint(IntBooleanExpression cons, Identifier var){
 		boolean exit=false;
 		String id= var.getId();
 		NodeVariableHLCL varN=variables.get(id);
@@ -308,7 +307,7 @@ public class ConstraintGraphHLCL {
 			 }
 			 System.out.print("\n");
 			 System.out.print("unary constraints: \n" );
-			 for (BooleanExpression unary :  var.getConstraints()) {
+			 for (IntBooleanExpression unary :  var.getConstraints()) {
 				 System.out.print(unary.toString()+"\n");	 
 			}
 		 }

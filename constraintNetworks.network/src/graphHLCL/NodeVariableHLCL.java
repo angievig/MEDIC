@@ -4,9 +4,8 @@ package graphHLCL;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-import com.variamos.hlcl.BooleanExpression;
-import com.variamos.hlcl.HlclProgram;
-import com.variamos.hlcl.Identifier;
+import com.variamos.hlcl.model.expressions.Identifier;
+
 
 
 
