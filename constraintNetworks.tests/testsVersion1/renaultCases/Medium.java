@@ -8,7 +8,7 @@ import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
 import graph.ConstraintGraph;
-import graphicConstraintNetwork.Window;
+import guiElements.Window;
 import individual.MinimalFelferning;
 import minimal.util.LogManager;
 import minimalSets.MinimalSetsDFS;

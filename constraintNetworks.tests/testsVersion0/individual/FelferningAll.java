@@ -9,7 +9,7 @@ import cspElements.CSP;
 import cspElements.Constraint;
 import cspElements.Variable;
 import graph.ConstraintGraph;
-import graphicConstraintNetwork.Window;
+import guiElements.Window;
 import minimal.util.LogManager;
 import minimalSets.MinimalSetsDFSBuilder;
 import prologParser.XCSPPrologParser;

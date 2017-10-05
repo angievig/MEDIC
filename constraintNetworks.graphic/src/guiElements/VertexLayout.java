@@ -1,4 +1,4 @@
-package graphicConstraintNetwork;
+package guiElements;
 
 import java.awt.Color;
 import java.awt.Paint;

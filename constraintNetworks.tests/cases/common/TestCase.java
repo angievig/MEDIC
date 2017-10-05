@@ -7,7 +7,7 @@ import cspElements.Constraint;
 import cspElements.Variable;
 import graph.ConstraintGraph;
 import graph.Vertex;
-import graphicConstraintNetwork.Window;
+import guiElements.Window;
 import minimal.util.LogManager;
 import minimalSets.MinimalSetsDFSIterations;
 import transform.CSP2Network;

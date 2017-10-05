@@ -4,11 +4,11 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MEDIC.graph"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MEDIC.csp"/>
-	<classpathentry kind="lib" path="C:/Users/Angela Villota/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-visualization/target/jung-visualization-2.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Angela Villota/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-io/target/jung-io-2.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Angela Villota/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-graph-impl/target/jung-graph-impl-2.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Angela Villota/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-algorithms/target/jung-algorithms-2.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Angela Villota/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-api/target/jung-api-2.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Angela Villota/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-samples/target/guava-19.0.jar"/>
+	<classpathentry kind="lib" path="/Users/Angela/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-visualization/target/jung-visualization-2.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Angela/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-io/target/jung-io-2.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Angela/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-graph-impl/target/jung-graph-impl-2.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Angela/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-samples/target/guava-19.0.jar"/>
+	<classpathentry kind="lib" path="/Users/Angela/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-algorithms/target/jung-algorithms-2.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Angela/Dropbox/phd/Constraint_networks/jung-jung-2.1.1/jung-api/target/jung-api-2.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

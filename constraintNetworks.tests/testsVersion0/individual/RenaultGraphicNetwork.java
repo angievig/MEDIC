@@ -9,7 +9,7 @@ import cspElements.Constraint;
 import cspElements.Variable;
 import graph.ConstraintGraph;
 import graphicConstraintNetwork.GraphicNetwork;
-import graphicConstraintNetwork.Window;
+import guiElements.Window;
 import transform.CSP2File;
 import transform.CSP2Network;
 

@@ -1,4 +1,4 @@
-package graphicConstraintNetwork;
+package guiElements;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

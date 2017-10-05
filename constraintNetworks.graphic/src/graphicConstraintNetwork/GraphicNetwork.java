@@ -34,6 +34,8 @@ import edu.uci.ics.jung.visualization.picking.PickedState;
 import graph.ConstraintGraph;
 import graph.NodeConstraint;
 import graph.Vertex;
+import guiElements.VertexLabel;
+import guiElements.VertexLayout;
 
 
 public class GraphicNetwork extends JPanel {

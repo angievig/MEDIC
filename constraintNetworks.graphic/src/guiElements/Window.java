@@ -1,4 +1,4 @@
-package graphicConstraintNetwork;
+package guiElements;
 
 import java.awt.BorderLayout;
 
@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import cspElements.CSP;
 import graph.ConstraintGraph;
+import graphicConstraintNetwork.GraphicNetwork;
 
 public class Window extends JFrame{
 	private GraphicNetwork graph;
