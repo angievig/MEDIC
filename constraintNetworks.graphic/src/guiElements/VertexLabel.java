@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.awt.Paint;
 
 import com.google.common.base.Function;
+import com.variamos.reasoning.medic.model.graph.NodeVariableHLCL;
+import com.variamos.reasoning.medic.model.graph.VertexHLCL;
 
 import edu.uci.ics.jung.visualization.picking.PickedInfo;
-import graph.NodeConstraint;
-import graph.NodeVariable;
-import graph.Vertex;
+
 
 public class VertexLabel<V> implements Function<V,String> {
 	protected PickedInfo<V> pi;
@@ -23,17 +23,19 @@ public class VertexLabel<V> implements Function<V,String> {
 		// TODO Auto-generated method stub
 		
 	        
-        if (v instanceof NodeVariable)
-        {
+        if (v instanceof NodeVariableHLCL)
+        { 
 
-            return ((Vertex) v).getId();
+            return ((VertexHLCL) v).getId()+ 
+            		((((VertexHLCL) v).getSearchState() == VertexHLCL.VISITED)? "_"+((VertexHLCL) v).getOrder():"");
         }
         else{
         	 if (pi.isPicked(v))
  	        {
  	            return v.toString(); 
  	        }
-        	 return ((Vertex) v).getId();
+        	 return ((VertexHLCL) v).getId()+ 
+             		((((VertexHLCL) v).getSearchState() == VertexHLCL.VISITED)? "_"+((VertexHLCL) v).getOrder():"");
         	
         }
         

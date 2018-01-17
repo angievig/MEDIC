@@ -199,6 +199,8 @@ public class XCSPPrologParser implements XCallbacks2{
 		csp.setVariables(variables);
 		return csp;
 	}
+	
+	
 
 
 

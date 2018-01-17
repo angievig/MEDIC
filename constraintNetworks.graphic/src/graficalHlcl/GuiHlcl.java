@@ -13,8 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.google.common.base.Supplier;
+import com.variamos.reasoning.medic.model.graph.ConstraintGraphHLCL;
+import com.variamos.reasoning.medic.model.graph.NodeConstraintHLCL;
+import com.variamos.reasoning.medic.model.graph.NodeVariableHLCL;
+import com.variamos.reasoning.medic.model.graph.VertexHLCL;
 
-import cspElements.Constraint;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
@@ -31,44 +34,41 @@ import edu.uci.ics.jung.visualization.GraphZoomScrollPane;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.picking.PickedState;
-import graph.ConstraintGraph;
-import graph.NodeConstraint;
-import graph.Vertex;
 import guiElements.VertexLabel;
 import guiElements.VertexLayout;
 
 
 public class GuiHlcl extends JPanel {
-	private ConstraintGraph net;
-	private Graph<Vertex, String> g;
+	private ConstraintGraphHLCL net;
+	private Graph<VertexHLCL, String> g;
 //	private JFrame frame;
 //	private JPanel drawPanel;
-	private VisualizationViewer<Vertex, String> vv;
-	private VertexLayout<Vertex> vertexLayout;
-	private VertexLabel<Vertex> vertexLabel;
-	private DefaultModalGraphMouse<Vertex,String> gm;
+	private VisualizationViewer<VertexHLCL, String> vv;
+	private VertexLayout<VertexHLCL> vertexLayout;
+	private VertexLabel<VertexHLCL> vertexLabel;
+	private DefaultModalGraphMouse<VertexHLCL,String> gm;
 	
-	public GuiHlcl(ConstraintGraph n){
+	public GuiHlcl(ConstraintGraphHLCL n){
 		net= n;
 		g= createGraph();
 //		frame= new JFrame();
 		//drawPanel= new JPanel();
-		vv = new VisualizationViewer<Vertex, String>(new FRLayout<Vertex, String>(g));
+		vv = new VisualizationViewer<VertexHLCL, String>(new FRLayout<VertexHLCL, String>(g));
 		vv.setBackground(Color.white);
 		GraphZoomScrollPane scrollPane = new GraphZoomScrollPane(vv);
-        PickedState<Vertex> picked_state = vv.getPickedVertexState();
+        PickedState<VertexHLCL> picked_state = vv.getPickedVertexState();
         System.out.println(picked_state);
 
        
         
         // create decorators
-        vertexLayout = new VertexLayout<Vertex>(picked_state);
-        vertexLabel = new VertexLabel<Vertex>(picked_state);
+        vertexLayout = new VertexLayout<VertexHLCL>(picked_state);
+        vertexLabel = new VertexLabel<VertexHLCL>(picked_state);
         vv.getRenderContext().setVertexFillPaintTransformer(vertexLayout);
         vv.getRenderContext().setVertexLabelTransformer(vertexLabel);
         
         //funciones basicas de zoom y mouse
-        gm = new DefaultModalGraphMouse<Vertex,String>();
+        gm = new DefaultModalGraphMouse<VertexHLCL,String>();
         vv.setGraphMouse(gm);
        // vv.setVertexToolTipTransformer(new VoltageTips<Number>());
 
@@ -82,28 +82,28 @@ public class GuiHlcl extends JPanel {
 //	    frame.setVisible(true);
 	}
 	public Graph createGraph(){
-		 Graph <Vertex, String> ng= new UndirectedSparseGraph<Vertex, String>();
+		 Graph <VertexHLCL, String> ng= new UndirectedSparseGraph<VertexHLCL, String>();
 		 
 		 //painting variables
-		for(Vertex v: net.getVariables().values()){
+		for(NodeVariableHLCL v: net.getVariables().values()){
 			ng.addVertex(v);
 			//int i=0;
-			for(Constraint c: v.getConstraints()){
+			for(NodeConstraintHLCL c: v.getUnary()){
 //				String id= "OC"+v.getId()+i;
 				String id= c.getId();
 
 				System.out.println(id);
-				NodeConstraint  option= new NodeConstraint(id, c);
-				ng.addVertex(option);
-				ng.addEdge(id, v, option);
+				//NodeConstraintHLCL  option= new NodeConstraintHLCL(id, c);
+				ng.addVertex(c);
+				ng.addEdge(id, v, c);
 				//i++;
 			}
 			
 		}
 		//painting constraints
-		for(Vertex v: net.getConstraints().values()){
+		for(VertexHLCL v: net.getConstraints().values()){
 			ng.addVertex(v);
-			for(Vertex end: v.getNeighbors()){
+			for(VertexHLCL end: v.getNeighbors()){
 				String id= "Edge_"+v.getId()+"_"+end.getId();
 				ng.addEdge(id, v, end);
 			

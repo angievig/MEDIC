@@ -2,6 +2,7 @@ package HlclParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,8 +37,8 @@ public class XCSPHlclParser implements XCallbacks2{
 	private XParser parser;
 	private Map<XVarInteger, Identifier> mapVar = new LinkedHashMap<XVarInteger, Identifier>();
 	
-	Map<String, Identifier> idMap;
-	HlclProgram prog;
+	Map<String, Identifier> idMap= new HashMap<String, Identifier>();
+	HlclProgram prog= new HlclProgram();
 	static private HlclFactory f = new HlclFactory();
 
 //	
@@ -65,7 +66,7 @@ public class XCSPHlclParser implements XCallbacks2{
 		//String domain= SWIPrologSymbols.IN + ConstraintSymbols.SPACE +minValue +SWIPrologSymbols.DOMAIN_INTERVAL  + maxValue;
 		//String domain= minValue +SWIPrologSymbols.DOMAIN_INTERVAL  + maxValue;
 		//Variable x = new Variable(varName(xx.id),domain ); // Build your solver variable x here using xx.id, minValue and maxValue
-		Identifier x = f.newIdentifier(xx.id);
+		Identifier x = f.newIdentifier(varName(xx.id));
 		RangeDomain domain= new RangeDomain();
 		domain.setLowerValue(minValue);
 		domain.setUpperValue(maxValue);
@@ -73,7 +74,7 @@ public class XCSPHlclParser implements XCallbacks2{
 		//TODO remove print
 		//System.out.println(varName(xx.id)+ " "+ domain);
 		mapVar.put(xx,x);
-		idMap.put(xx.id, x);
+		idMap.put(varName(xx.id), x);
 		//variables.add(x);
 	}
 	/**
@@ -86,7 +87,7 @@ public class XCSPHlclParser implements XCallbacks2{
 		//TODO remove print
 		//System.out.println(varName(xx.id) + " "+ domain);
 		// Build your solver variable x here using xx.id, minValue and maxValue
-		Identifier x = f.newIdentifier(xx.id);
+		Identifier x = f.newIdentifier(varName(xx.id));
 		IntervalDomain domain= new IntervalDomain();
 		
 		
@@ -95,7 +96,7 @@ public class XCSPHlclParser implements XCallbacks2{
 		}
 		x.setDomain(domain); 
 		mapVar.put(xx,x); 
-		idMap.put(xx.id, x);
+		idMap.put(varName(xx.id), x);
 	
 	}
 	/**

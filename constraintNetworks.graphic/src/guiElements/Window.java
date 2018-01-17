@@ -6,21 +6,22 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import cspElements.CSP;
-import graph.ConstraintGraph;
-import graphicConstraintNetwork.GraphicNetwork;
+import com.variamos.reasoning.medic.model.graph.ConstraintGraphHLCL;
+
+import graficalHlcl.GuiHlcl;
+
 
 public class Window extends JFrame{
-	private GraphicNetwork graph;
+	private GuiHlcl graph;
 	private ControlPanel controls;
 	private JPanel modePanel;
 	
 	
-	public Window(ConstraintGraph net){
-		graph= new GraphicNetwork(net);
+	public Window(ConstraintGraphHLCL net, String title){
+		graph= new GuiHlcl(net);
 		modePanel= graph.modePanel();
 		controls = new ControlPanel(this, modePanel);
-		
+		//this.setTitle(title);
 		this.setLayout(new BorderLayout());
 		
 		this.add(graph, BorderLayout.CENTER);
