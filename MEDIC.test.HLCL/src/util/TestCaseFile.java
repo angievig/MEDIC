@@ -16,7 +16,7 @@ import com.variamos.reasoning.util.LogParameters;
 import com.variamos.solver.core.SWIPrologSolver;
 
 import caseStudies.CaseStudy;
-import guiElements.Window;
+//import guiElements.Window;
 
 public class TestCaseFile extends TestCase{
 	
@@ -71,11 +71,12 @@ public class TestCaseFile extends TestCase{
 		pathNodes =minimal.sourceOfInconsistentConstraints(root, iterations);
 		//report+= minimal.graphInfo()+ ","+ minimal.getIter()+ ","+minimal.getPathLenght()+ ","+minimal.getTotal() + ",";
 		//report+= minimal.getTime() + ", ";
-		//report+=minimal.sizePath();
+		//report+= minimal.sizePath();
 		//report+= minimal.graphInfo()+ ","+"  ,"+ minimal.getIter()+ ","+minimal.getPathLenght()+ ","+minimal.getTotal()+" ," + ","+ minimal.sizePath()+" ,";
-//		
+		//report+=  minimal.graphInfo()+ ","+ minimal.getPathLenght()+","+ minimal.getIter()+ ","+minimal.getTotal();// ","+ minimal.sizePath()+" ,";
+		report+=  minimal.getPathLenght()+","+ minimal.getNumVars();
 		//report+= minimal.graphInfo()+ ",  ," ;
-		report+= minimal.getTotal();
+		//report+= minimal.getTotal();
 
 //		
 //		int totalVertices=0;
@@ -100,7 +101,7 @@ public class TestCaseFile extends TestCase{
 		
 		}
 		else{
-			report+= getProblemName() + "is consistent";
+			report+= getProblemName() + " is consistent";
 		}
 	 report +="\n";
 
@@ -123,6 +124,7 @@ public class TestCaseFile extends TestCase{
 			//minimal.printNetwork(minimal.getGraph());
 			//Window ventana1= new Window(minimal.getGraph(), "initial graph");
 			LinkedList<VertexHLCL> pathNodes =minimal.sourceOfInconsistentConstraints(root, iterations);
+			report+=  minimal.getPathLenght()+","+ minimal.getNumVars();// ","+ minimal.sizePath()+" ,";
 			//report+= minimal.graphInfo()+ ","+" ,"+ minimal.getIter()+ ","+minimal.getPathLenght()+ ","+minimal.getTotal()+" ," + ","+ minimal.sizePath()+" ,";
 //			report+= minimal.getTime() + ", ";
 //			report2+= minimal.getPathLenght() + ", ";
@@ -146,7 +148,8 @@ public class TestCaseFile extends TestCase{
 			}
 			//System.out.println(report);
 			
-		return report +"\n" + report2;
+		return report +"\n" ;
+		//return report +"\n" + report2;
 		
 		//TODO To print the path
 //		System.out.println("Path " + pathNodes.size());

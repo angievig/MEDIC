@@ -194,7 +194,7 @@ public void runTest(String name, HlclProgram csp, Map<String, Identifier> idMap 
 		boolean consistent = swiSolver.hasSolution();
 		System.gc();
 		if(!consistent){
-		TestCaseFile test = new TestCaseFile(path, name, csp,root);
+		TestCaseFile test = new TestCaseFile(path, name, csp,"RAND"); // max, min, rand
 		report +=test.startTestsRenault(10, 1);
 		numberTests++;
 		} else
@@ -232,15 +232,15 @@ public void nuevasSmall( HlclProgram csp, Map<String, Identifier> idMap){
 	
 	ComparisonExpression  cn1, cn2, cn3, cn4, cn5, cn6;
 	
-	
-//	cn1= new Constraint("CN1","X6_0 #=0");
-//	csp.addConstaint(cn1);
-//	csp.addVarToConstraint(cn1, "X6_0");
+//	
+////	cn1= new Constraint("CN1","X6_0 #=0");
+////	csp.addConstaint(cn1);
+////	csp.addVarToConstraint(cn1, "X6_0");
 	
 	cn1= f.equals(idMap.get("X6_0"), cero);
 	csp.add(cn1);
 
-	
+//	
 //	cn2= new Constraint("CN2","X7_77#\\=1");
 //	csp.addConstaint(cn2);
 //	csp.addVarToConstraint(cn2, "X7_77");
@@ -323,8 +323,8 @@ public void nuevasMediumPos( HlclProgram csp, Map<String, Identifier> idMap){
 	ComparisonExpression  cn1, cn2, cn3, cn4, cn5, cn6;
 	
 	
-//	cn1= f.equals(idMap.get("X3_3"), cero);
-//	csp.add(cn1);
+	cn1= f.equals(idMap.get("X3_3"), cero);
+	csp.add(cn1);
 //
 	
 	cn2= f.equals(idMap.get("X5_5"), cero);
@@ -348,11 +348,11 @@ public void nuevasMedium( HlclProgram csp, Map<String, Identifier> idMap){
 	csp.add(cn2);
 
 
-//	cn3= f.equals(idMap.get("X1_1"), cero);
-//	csp.add(cn3);
-//	
-//	cn4= f.equals(idMap.get("X4_5"), cero);
-//	csp.add(cn4);
+	cn3= f.equals(idMap.get("X1_1"), cero);
+	csp.add(cn3);
+	
+	cn4= f.equals(idMap.get("X4_5"), cero);
+	csp.add(cn4);
 
 }
 public void nuevasMaster( HlclProgram csp, Map<String, Identifier> idMap){
@@ -360,12 +360,12 @@ public void nuevasMaster( HlclProgram csp, Map<String, Identifier> idMap){
 	ComparisonExpression  cn1, cn2, cn3, cn4, cn5, cn6;
 
 
-cn1= f.equals(idMap.get("X2_1"), uno);
-csp.add(cn1);
+	cn1= f.equals(idMap.get("X2_1"), uno);
+	csp.add(cn1);
 
 
-cn2= f.equals(idMap.get("X4_23"), cero);
-csp.add(cn2);
+	cn2= f.equals(idMap.get("X4_23"), cero);
+	csp.add(cn2);
 }
 public void nuevasBig( HlclProgram csp, Map<String, Identifier> idMap){
 	
